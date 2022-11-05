@@ -9,12 +9,21 @@
 #include <dt-bindings/zmk/keys_si.h>
 #include <dt-bindings/zmk/bt.h>
 
+#define xxx &none
+#define ___ &trans
+
 #define L_BAS   0
 #define L_BAS_S 1
 #define L_SYM   2
 #define L_SYM_S 3
 #define L_EXT   4
-#define L_EXT_S 5
+
+#define L_C_B   5
+#define L_C_S   6
+#define L_C_E   7
+
+// TODO: use hold-tab on TAB (tab=TAB, hold=&mo BT)
+
 / {
 
     // | 0  | 1  | 2  | 3  | 4  | 5  |   | 6  | 7  | 8  | 9  | 10  | 11  |
@@ -95,7 +104,7 @@
    &kp TAB     &kp SI_N1 &kp SI_N2 &kp SI_N3 &kp SI_N4 &kp SI_N5      &kp SI_N6 &kp SI_N7 &kp SI_N8 &kp SI_N9   &kp SI_N0   &kp SI_MINUS
    &mo L_EXT   &trans    &trans    &trans    &trans    &trans         &trans    &trans    &kp SI_EURO    &kp SI_LBKT &kp SI_RBKT &kp SI_GRAVE
    &kp L_BAS_S &trans    &trans    &trans    &trans    &trans         &trans    &trans    &trans    &trans      &kp SI_BSLH &mo L_BAS_S
-                    	           &kp LGUI  &trans    &kp SPACE      &kp RET   &trans    &mo L_SYM
+                                   &kp LGUI  &trans    &kp SPACE      &kp RET   &trans    &mo L_SYM
             >;
         };
 
@@ -109,7 +118,7 @@
    &kp TAB     &kp SI_EXCL &kp SI_AT &kp SI_HASH &kp SI_DLLR &kp SI_PRCNT      &kp SI_CARET &kp SI_AMPS &kp SI_ASTRK &kp SI_LPAR &kp SI_RPAR &kp SI_UNDER
    &mo L_EXT   &trans      &trans    &trans      &trans    &trans              &trans       &trans      &kp SI_RNGA  &kp SI_LBRC &kp SI_RBRC &kp SI_TILDE
    &kp L_BAS_S &trans      &trans    &trans      &trans    &trans              &trans       &trans      &trans       &trans      &kp SI_PIPE &mo L_BAS_S
-                    	             &kp LGUI    &trans    &kp SPACE           &kp RET      &trans      &mo L_SYM
+                                     &kp LGUI    &trans    &kp SPACE           &kp RET      &trans      &mo L_SYM
             >;
         };
 
@@ -117,13 +126,57 @@
 // -----------------------------------------------------------------------------------------
 // | TAB  | Esc   | WhUp   | GoBack | GoFwd  |        |   | Home   | PgDown | PgUp  | End   | Del  | Print |
 // | RSE  | Back  | WhDown |        |        |        |   | Left   | Down   | Up    | Right | Back | Esc   |
-// | SHFT | BTCLR | BT1    | BT2    | BT3    | BT4    |   | Undo   | Redo   |       |       | Del  | SHFT  |
+// | SHFT | BTCLR | BT1    | BT2    | TO SI  | TO CLM |   | Undo   | Redo   |       |       | Del  | SHFT  |
 //                         | GUI    | CTRL   | Return |   | Return |        | L ALT |
             bindings = <
    &kp TAB     &kp ESC    &kp K_SCROLL_UP   &kp K_BACK   &kp K_FORWARD &trans         &kp HOME &kp PG_DN  &kp PG_UP &kp END   &kp DEL  &kp PSCRN
    &mo L_EXT   &kp BSPC   &kp K_SCROLL_DOWN &trans       &trans        &trans         &kp LEFT &kp DOWN   &kp UP    &kp RIGHT &kp BSPC &kp ESC
-   &kp L_BAS_S &bt BT_CLR &bt BT_SEL 0      &bt BT_SEL 1 &bt BT_SEL 2  &bt BT_SEL 3   &kp UNDO &kp K_REDO &trans    &trans    &kp DEL   &mo L_BAS_S
-                          	                &kp LGUI     &trans        &kp RET        &kp RET  &trans     &mo L_SYM
+   &kp L_BAS_S &bt BT_CLR &bt BT_SEL 0      &bt BT_SEL 1 &to L_BAS     &to L_C_B      &kp UNDO &kp K_REDO &trans    &trans    &kp DEL  &mo L_BAS_S
+                                            &kp LGUI     &trans        &kp RET        &kp RET  &trans     &mo L_SYM
+            >;
+        };
+
+
+
+        si_colemak_base_layer {
+// -----------------------------------------------------------------------------------------
+// | TAB  |  Q  |  W  |  F  |  P   |  B  |   |  J  |  L   |  U  |  Y  |  ;  | =    |
+// | EXT  |  A  |  R  |  S  |  T   |  G  |   |  M  |  N   |  E  |  I  |  O  |  '   |
+// | SHFT |  Z  |  X  |  C  |  D   |  V  |   |  K  |  H   |  ,  |  .  |  /  | SHFT |
+//                    | GUI | CTRL | SPC |   | ENT | SYM  | ALT |
+            bindings = <
+   &kp TAB   &kp Q &kp W &kp F    &kp P     &kp B       &kp J   &kp L     &kp U     &kp Y   &kp SEMI &kp EQUAL
+   &mo L_C_E &kp A &kp R &kp S    &kp T     &kp G       &kp M   &kp N     &kp E     &kp I   &kp O    &kp SQT
+   &kp LSHFT &kp Z &kp X &kp C    &kp D     &kp V       &kp K   &kp H     &kp COMMA &kp DOT &kp FSLH &kp RSFT
+                         &kp LGUI &kp LCTRL &kp SPACE   &kp RET &mo L_C_S &kp LALT
+            >;
+        };
+
+        si_colemak_sym_layer {
+// -----------------------------------------------------------------------------------------
+// | TAB  | 1   | 2   | 3   | 4   | 5   |   | 6   | 7   | 8   | 9   | 0   | -    |
+// | EXT  |     |     |     |     |     |   |     |     |     |  [  | ]   | `    |
+// | SHFT |     |     |     |     |     |   |     |     |     |     | \   | SHFT |
+//                    | GUI |     | SPC |   | ENT | SYM | ALT |
+                        bindings = <
+   &kp TAB   &kp N1   &kp N2 &kp N3   &kp N4   &kp N5      &kp N6    &kp N7   &kp N8   &kp N9   &kp N0   &kp MINUS
+   ___       xxx      xxx    xxx      xxx      xxx         xxx       xxx      xxx      &kp LBKT &kp RBKT &kp GRAVE
+   ___       xxx      xxx    xxx      xxx      xxx         xxx       xxx      xxx      xxx      &kp BSLH ___
+                             &kp LGUI &trans   &kp SPACE   &kp RET   &trans   &kp LALT
+            >;
+        };
+
+        sy_colemak_ext_layer {
+// -----------------------------------------------------------------------------------------
+// | TAB  | Esc   | WhUp   | GoBack | GoFwd  |        |   | Home   | PgDown | PgUp  | End   | Del  | Print |
+// | EXT  | Back  | WhDown |        |        |        |   | Left   | Down   | Up    | Right | Back | Esc   |
+// | SHFT | BTCLR | BT1    | BT2    | TO SI  | TO CLM |   | Undo   | Redo   |       |       |      |       |
+//                         | GUI    | CTRL   | Return |   | Return | SYM    | L ALT |
+            bindings = <
+   &kp TAB    &kp ESC    &kp K_SCROLL_UP   &kp K_BACK   &kp K_FORWARD xxx            &kp HOME &kp PG_DN  &kp PG_UP &kp END   &kp DEL  &kp PSCRN
+   ___        &kp BSPC   &kp K_SCROLL_DOWN xxx          xxx           xxx            &kp LEFT &kp DOWN   &kp UP    &kp RIGHT &kp BSPC &kp ESC
+   ___        &bt BT_CLR &bt BT_SEL 0      &bt BT_SEL 1 &to L_BAS     &to L_C_B      &kp UNDO &kp K_REDO xxx       xxx       &kp DEL  ___
+                                           &kp LGUI     ___           &kp RET        ___      ___        ___
             >;
         };
 
