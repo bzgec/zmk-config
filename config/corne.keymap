@@ -1,0 +1,131 @@
+/*
+ * Copyright (c) 2020 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/keys_si.h>
+#include <dt-bindings/zmk/bt.h>
+
+#define L_BAS   0
+#define L_BAS_S 1
+#define L_SYM   2
+#define L_SYM_S 3
+#define L_EXT   4
+#define L_EXT_S 5
+/ {
+
+    // | 0  | 1  | 2  | 3  | 4  | 5  |   | 6  | 7  | 8  | 9  | 10  | 11  |
+    // | 12 | 13 | 14 | 15 | 16 | 17 |   | 18 | 19 | 20 | 21 | 22  | 23  |
+    // | 24 | 25 | 26 | 27 | 28 | 29 |   | 30 | 31 | 32 | 33 | 34  | 35  |
+    //                | 36 | 37 | 38 |   | 39 | 40 | 41 |
+    combos {
+        compatible = "zmk,combos";
+        combo_l_sym_left_s {
+          timeout-ms = <2000>;
+          bindings = <&mo L_SYM_S>;
+          key-positions = <24 40>;
+          // If layers parameter is ommited it defaults to global scope
+          //layers = <L_BAS L_SYM L_EXT>;
+        };
+        combo_l_sym_right_s {
+          timeout-ms = <2000>;
+          bindings = <&mo L_SYM_S>;
+          key-positions = <35 40>;
+          // If layers parameter is ommited it defaults to global scope
+          //layers = <L_BAS L_SYM L_EXT>;
+        };
+        combo_ctlr_shift_tab {
+          timeout-ms = <1000>;
+          bindings = <&kp LC(LS(TAB))>;
+          key-positions = <24 37 0>;
+        };
+    };
+
+    behaviors {
+        //si-semi-colo: si_semicolon_colon {
+        //  compatible = "zmk,behavior-key-press-custom";
+        //  label = "SI_SEMI_COLO";
+        //  #binding-cells = <0>;
+        //  bindings = <&kp SEMI>, <&kp COLON>;
+        //  mods = <(MOD_LALT)>;
+        //};
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        base_layer {
+// -----------------------------------------------------------------------------------------
+// | TAB  |  q  |  w  |  f  |  p   |  b  |   |  j  |  l   |  u  |  y  |  ;  | =    |
+// | RSE  |  a  |  r  |  s  |  t   |  g  |   |  m  |  n   |  e  |  i  |  o  | '    |
+// | SHFT |  z  |  x  |  c  |  d   |  v  |   |  k  |  h   |  ,  |  .  |  /  | SHFT |
+//                    | GUI | CTRL | SPC |   | ENT | LWR  | ALT |
+            bindings = <
+   &kp TAB     &kp SI_Q &kp SI_W &kp SI_F  &kp SI_P  &kp SI_B       &kp SI_J &kp SI_L  &kp SI_U     &kp SI_Y   &kp SI_SEMI &kp SI_EQUAL
+   &mo L_EXT   &kp SI_A &kp SI_R &kp SI_S  &kp SI_T  &kp SI_G       &kp SI_M &kp SI_N  &kp SI_E     &kp SI_I   &kp SI_O    &kp SI_SQT
+   &mo L_BAS_S &kp SI_Z &kp SI_X &kp SI_C  &kp SI_D  &kp SI_V       &kp SI_K &kp SI_H  &kp SI_COMMA &kp SI_DOT &kp SI_FSLH &mo L_BAS_S
+                                 &kp LGUI  &kp LCTRL &kp SPACE      &kp RET  &mo L_SYM &kp LALT
+            >;
+        };
+
+        base_shifted_layer {
+// -----------------------------------------------------------------------------------------
+// | TAB  |  Q  |  W  |  F  |  P   |  B  |   |  J  |  L   |  U  |  Y  |  :  | +    |
+// | RSE  |  A  |  R  |  S  |  T   |  G  |   |  M  |  N   |  E  |  I  |  O  | "    |
+// | SHFT |  Z  |  X  |  C  |  D   |  V  |   |  K  |  H   |  <  |  >  |  ?  | SHFT |
+//                    | GUI | CTRL | SPC |   | ENT | LWR  | ALT |
+            bindings = <
+   &kp TAB     &kp LS(SI_Q) &kp LS(SI_W) &kp LS(SI_F) &kp LS(SI_P) &kp LS(SI_B) &kp LS(SI_J) &kp LS(SI_L) &kp LS(SI_U) &kp LS(SI_Y) &kp SI_COLON &kp SI_PLUS
+   &mo L_EXT   &kp LS(SI_A) &kp LS(SI_R) &kp LS(SI_S) &kp LS(SI_T) &kp LS(SI_G) &kp LS(SI_M) &kp LS(SI_N) &kp LS(SI_E) &kp LS(SI_I) &kp LS(SI_O) &kp SI_DQT
+   &mo L_BAS_S &kp LS(SI_Z) &kp LS(SI_X) &kp LS(SI_C) &kp LS(SI_D) &kp LS(SI_V) &kp LS(SI_K) &kp LS(SI_H) &kp SI_LT    &kp SI_GT    &kp SI_QMARK &mo L_BAS_S
+                                         &kp LGUI     &kp LCTRL    &kp SPACE    &kp RET      &mo L_SYM        &kp LALT
+            >;
+        };
+
+        sym_layer {
+// -----------------------------------------------------------------------------------------
+// | TAB  | 1   | 2   | 3   | 4   | 5   |   | 6   | 7   | 8   | 9   | 0   | -    |
+// | RSE  |     |     |     |     |     |   |     |     | €   | [   | ]   | `    |
+// | SHFT |     |     |     |     |     |   |     |     |     |     | \   |      |
+//                    | GUI |     | SPC |   | ENT |     | ALT |
+                        bindings = <
+   &kp TAB     &kp SI_N1 &kp SI_N2 &kp SI_N3 &kp SI_N4 &kp SI_N5      &kp SI_N6 &kp SI_N7 &kp SI_N8 &kp SI_N9   &kp SI_N0   &kp SI_MINUS
+   &mo L_EXT   &trans    &trans    &trans    &trans    &trans         &trans    &trans    &kp SI_EURO    &kp SI_LBKT &kp SI_RBKT &kp SI_GRAVE
+   &kp L_BAS_S &trans    &trans    &trans    &trans    &trans         &trans    &trans    &trans    &trans      &kp SI_BSLH &mo L_BAS_S
+                    	           &kp LGUI  &trans    &kp SPACE      &kp RET   &trans    &mo L_SYM
+            >;
+        };
+
+        sym_shifted_layer {
+// -----------------------------------------------------------------------------------------
+// | TAB  | !   | @   | #   | $   | %   |   | ^   | &   | *   | (   | )   | _    |
+// | RSE  |     |     |     |     |     |   |     |     | °   | {   | }   | ~    |
+// | SHFT |     |     |     |     |     |   |     |     |     |     | "|" |      |
+//                    | GUI |     | SPC |   | ENT |     | ALT |
+                        bindings = <
+   &kp TAB     &kp SI_EXCL &kp SI_AT &kp SI_HASH &kp SI_DLLR &kp SI_PRCNT      &kp SI_CARET &kp SI_AMPS &kp SI_ASTRK &kp SI_LPAR &kp SI_RPAR &kp SI_UNDER
+   &mo L_EXT   &trans      &trans    &trans      &trans    &trans              &trans       &trans      &kp SI_RNGA  &kp SI_LBRC &kp SI_RBRC &kp SI_TILDE
+   &kp L_BAS_S &trans      &trans    &trans      &trans    &trans              &trans       &trans      &trans       &trans      &kp SI_PIPE &mo L_BAS_S
+                    	             &kp LGUI    &trans    &kp SPACE           &kp RET      &trans      &mo L_SYM
+            >;
+        };
+
+        ext_layer {
+// -----------------------------------------------------------------------------------------
+// | TAB  | Esc   | WhUp   | GoBack | GoFwd  |        |   | Home   | PgDown | PgUp  | End   | Del  | Print |
+// | RSE  | Back  | WhDown |        |        |        |   | Left   | Down   | Up    | Right | Back | Esc   |
+// | SHFT | BTCLR | BT1    | BT2    | BT3    | BT4    |   | Undo   | Redo   |       |       | Del  | SHFT  |
+//                         | GUI    | CTRL   | Return |   | Return |        | L ALT |
+            bindings = <
+   &kp TAB     &kp ESC    &kp K_SCROLL_UP   &kp K_BACK   &kp K_FORWARD &trans         &kp HOME &kp PG_DN  &kp PG_UP &kp END   &kp DEL  &kp PSCRN
+   &mo L_EXT   &kp BSPC   &kp K_SCROLL_DOWN &trans       &trans        &trans         &kp LEFT &kp DOWN   &kp UP    &kp RIGHT &kp BSPC &kp ESC
+   &kp L_BAS_S &bt BT_CLR &bt BT_SEL 0      &bt BT_SEL 1 &bt BT_SEL 2  &bt BT_SEL 3   &kp UNDO &kp K_REDO &trans    &trans    &kp DEL   &mo L_BAS_S
+                          	                &kp LGUI     &trans        &kp RET        &kp RET  &trans     &mo L_SYM
+            >;
+        };
+
+    };
+};
