@@ -2,24 +2,80 @@
  * Copyright (c) 2020 The ZMK Contributors
  *
  * SPDX-License-Identifier: MIT
+ *
+ *
+ ***************************************************************************************************
+ * Slovenian Colemak-DH angle mode variation
+ ***************************************************************************************************
+ * Host layout: SI
+ * Host layout: US (missing Š, č, ž, €, °)
+ *
+ ***************************************************************************************************
+ *  Base layer:
+ ***************************************************************************************************
+ *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
+ *  | TAB    |  q  Q  |  w  W  |  f  F  |  p  P  |  b  B  |             |  j  J  |  l  L  |  u  U  |  y  Y  |  ;  :  |  =  +  |
+ *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
+ *  | EXT    |  a  A  |  r  R  |  s  S  |  t  T  |  g  G  |             |  m  M  |  n  N  |  e  E  |  i  I  |  o  O  |  '  "  |
+ *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
+ *  | Shift  |  z  Z  |  x  X  |  c  C  |  d  D  |  v  V  |             |  k  K  |  h  H  |  ,  <  |  .  >  |  /  ?  | Shift  |
+ *  +--------+--------+--------+----+---+----+---+----+---+----+   +----+---+----+---+----+---+----+--------+--------+--------+
+ *                                  | Win    | Ctrl   | Space  |   | Enter  | SYM    | L Alt  |
+ *                                  +--------+--------+--------+   +--------+--------+--------+
+ *
+ ***************************************************************************************************
+ *  Symbols layer:
+ ***************************************************************************************************
+ *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
+ *  | TAB    |  1  !  |  2  @  |  3  #  |  4  $  |  5  %  |             |  6  ^  |  7  &  |  8  *  |  9  (  |  0  )  |  -  _  |
+ *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
+ *  | EXT    |        |        |  š  Š  |        |        |             |        |        |  €  °  |  [  {  |  ]  }  |  `  ~  |
+ *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
+ *  | Shift  |  ž  Ž  |        |  č  Č  |        |        |             |        |        |        |        |  \  |  | Shift  |
+ *  +--------+--------+--------+----+---+----+---+----+---+----+   +----+---+----+---+----+---+----+--------+--------+--------+
+ *                                  | Win    | Ctrl   | Space  |   | Enter  | SYM    | L Alt  |
+ *                                  +--------+--------+--------+   +--------+--------+--------+
+ *
+ ***************************************************************************************************
+ *  Extend layer:
+ ***************************************************************************************************
+ *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
+ *  | TAB    |  ESC   |  WhUp  | GoBack |  GoFwd |        |             |  Home  |  PgDn  |  PgUp  |  End   |  Del   | Print  |
+ *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
+ *  | EXT    |  Back  | WhDown | Shift  |  Ctrl  |  Alt   |             |  Left  |  Down  |  Up    | Right  |  Back  |  ESC   |
+ *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
+ *  | Shift  | BT CLR | BT 1   | BT 2   | To SI  | To US  |             |  Undo  |  Redo  |        |        |        | Shift  |
+ *  +--------+--------+--------+----+---+----+---+----+---+----+   +----+---+----+---+----+---+----+--------+--------+--------+
+ *                                  | Win    | Ctrl   | Enter  |   | Enter  | SYM    | L Alt  |
+ *                                  +--------+--------+--------+   +--------+--------+--------+
+ *
+ ***************************************************************************************************
+ * TODO:
+ ***************************************************************************************************
+ * - use hold-tab on TAB (tab=TAB, hold=&mo BT)
+ * - fix only capital letter Š on SI
+ * - wheel up/down not working
+ *
  */
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/keys_si.h>
 #include <dt-bindings/zmk/bt.h>
+#include "keys_si.h"
+
 
 #define xxx &none
 #define ___ &trans
 
 
-// My Slovenian Colemak-DH angle mode (missing some SI symbols...)
-// Host layout: US
-#define BASE 0  // Base layer
-#define SYM  1  // Symbols layer
-#define EXT  2  // Extend layer
+#define SI_BASE 0  // Base layer, host layout: SI
+#define SI_SYM  1  // Symbols layer, host layout: SI
+#define SI_EXT  2  // Extend layer, host layout: SI
+#define US_BASE 3  // Base layer, host layout: US
+#define US_SYM  4  // Symbols layer, host layout: US
+#define US_EXT  5  // Extend layer, host layout: US
 
-// TODO: use hold-tab on TAB (tab=TAB, hold=&mo BT)
 
 // https://zmk.dev/docs/features/debouncing
 &kscan0 {
@@ -27,16 +83,129 @@
     debounce-release-ms = <4>;  // Default is 5 ms
 };
 
+
 / {
-    //behaviors {
-        //si-semi-colo: si_semicolon_colon {
-        //  compatible = "zmk,behavior-key-press-custom";
-        //  label = "SI_SEMI_COLO";
-        //  #binding-cells = <0>;
-        //  bindings = <&kp SEMI>, <&kp COLON>;
-        //  mods = <(MOD_LALT)>;
-        //};
-    //};
+    behaviors {
+        si_semi: si-semicolon-colon {
+          compatible = "zmk,behavior-mod-morph";
+          label = "SI_SEMI_COLO";
+          #binding-cells = <0>;
+          bindings = <&kp SI_SEMI>, <&kp SI_COLON>;
+          mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        si_equal: si-equal-plus {
+          compatible = "zmk,behavior-mod-morph";
+          label = "SI_EQUAL_PLUS";
+          #binding-cells = <0>;
+          bindings = <&kp SI_EQUAL>, <&kp SI_PLUS>;
+          mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        si_sqt: si-sqt-dqt {
+          compatible = "zmk,behavior-mod-morph";
+          label = "SI_SQT_DQT";
+          #binding-cells = <0>;
+          bindings = <&kp SI_SQT>, <&kp SI_DQT>;
+          mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        si_comma: si-comma-lt {
+          compatible = "zmk,behavior-mod-morph";
+          label = "SI_COMMA_LT";
+          #binding-cells = <0>;
+          bindings = <&kp SI_COMMA>, <&kp SI_LT>;
+          mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        si_dot: si-dot-gt {
+          compatible = "zmk,behavior-mod-morph";
+          label = "SI_DOT_GT";
+          #binding-cells = <0>;
+          bindings = <&kp SI_DOT>, <&kp SI_GT>;
+          mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        si_fslh: si-fslh-qmark {
+          compatible = "zmk,behavior-mod-morph";
+          label = "SI_FSLK_QMARK";
+          #binding-cells = <0>;
+          bindings = <&kp SI_FSLH>, <&kp SI_QMARK>;
+          mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        si_n2: si-2-at {
+          compatible = "zmk,behavior-mod-morph";
+          label = "SI_N2_AT";
+          #binding-cells = <0>;
+          bindings = <&kp SI_N2>, <&kp SI_AT>;
+          mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        si_n6: si-6-caret {
+          compatible = "zmk,behavior-mod-morph";
+          label = "SI_N6_CARET";
+          #binding-cells = <0>;
+          bindings = <&kp SI_N6>, <&kp SI_CARET>;
+          mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        si_n7: si-7-amps {
+          compatible = "zmk,behavior-mod-morph";
+          label = "SI_N7_AMPS";
+          #binding-cells = <0>;
+          bindings = <&kp SI_N7>, <&kp SI_AMPS>;
+          mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        si_n8: si-8-astrk {
+          compatible = "zmk,behavior-mod-morph";
+          label = "SI_N8_ASTRK";
+          #binding-cells = <0>;
+          bindings = <&kp SI_N8>, <&kp SI_ASTRK>;
+          mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        si_n9: si-9-lpar {
+          compatible = "zmk,behavior-mod-morph";
+          label = "SI_N9_LPAR";
+          #binding-cells = <0>;
+          bindings = <&kp SI_N9>, <&kp SI_LPAR>;
+          mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        si_n0: si-0-rpar {
+          compatible = "zmk,behavior-mod-morph";
+          label = "SI_N0_RPAR";
+          #binding-cells = <0>;
+          bindings = <&kp SI_N0>, <&kp SI_RPAR>;
+          mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        si_euro: si-euro-rnga {
+          compatible = "zmk,behavior-mod-morph";
+          label = "SI_EURO_RNGA";
+          #binding-cells = <0>;
+          bindings = <&kp SI_EURO>, <&kp SI_RNGA>;
+          mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        si_lbkt: si-lbkt-lbrc {
+          compatible = "zmk,behavior-mod-morph";
+          label = "SI_LBKT_LBRC";
+          #binding-cells = <0>;
+          bindings = <&kp SI_LBKT>, <&kp SI_LBRC>;
+          mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        si_rbkt: si-rbkt-rbrc {
+          compatible = "zmk,behavior-mod-morph";
+          label = "SI_RBKT_RBRC";
+          #binding-cells = <0>;
+          bindings = <&kp SI_RBKT>, <&kp SI_RBRC>;
+          mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        si_grave: si-grave-tilde {
+          compatible = "zmk,behavior-mod-morph";
+          label = "SI_GRAVE_TILDE";
+          #binding-cells = <0>;
+          bindings = <&kp SI_GRAVE>, <&kp SI_TILDE>;
+          mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        si_bslh: si-bslh-pipe {
+          compatible = "zmk,behavior-mod-morph";
+          label = "SI_BSLH_PIPE";
+          #binding-cells = <0>;
+          bindings = <&kp SI_BSLH>, <&kp SI_PIPE>;
+          mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+    };
 
     keymap {
         compatible = "zmk,keymap";
@@ -48,14 +217,56 @@
 // | SHFT |  Z  |  X  |  C  |  D   |  V  |    |  K  |  H   | , < | . > | / ? | SHFT |
 //                    | GUI | CTRL | SPC |    | ENT | SYM  | ALT |
             bindings = <
-   &kp TAB   &kp Q &kp W &kp F    &kp P     &kp B       &kp J   &kp L   &kp U     &kp Y   &kp SEMI &kp EQUAL
-   &mo EXT   &kp A &kp R &kp S    &kp T     &kp G       &kp M   &kp N   &kp E     &kp I   &kp O    &kp SQT
-   &kp LSHFT &kp Z &kp X &kp C    &kp D     &kp V       &kp K   &kp H   &kp COMMA &kp DOT &kp FSLH &kp RSFT
-                         &kp LGUI &kp LCTRL &kp SPACE   &kp RET &mo SYM &kp LALT
+   &kp TAB    &kp SI_Q &kp SI_W &kp SI_F &kp SI_P  &kp SI_B    &kp SI_J &kp SI_L   &kp SI_U  &kp SI_Y &si_semi &si_equal
+   &mo SI_EXT &kp SI_A &kp SI_R &kp SI_S &kp SI_T  &kp SI_G    &kp SI_M &kp SI_N   &kp SI_E  &kp SI_I &kp SI_O &si_sqt
+   &kp LSHFT  &kp SI_Z &kp SI_X &kp SI_C &kp SI_D  &kp SI_V    &kp SI_K &kp SI_H   &si_comma &si_dot  &si_fslh &kp RSFT
+                                &kp LGUI &kp LCTRL &kp SPACE   &kp RET  &mo SI_SYM &kp LALT
             >;
         };
 
         si_colemak_sym_layer {
+// ----------------------------------------------------------------------------------------
+// | TAB  | 1 ! | 2 @ | 3 # | 4 $ | 5 % |    | 6 ^ | 7 & | 8 * | 9 ( | 0 ) | - _  |
+// | EXT  |     |     | Š Š |     |     |    |     |     | € ° | [ { | ] } | ` ~  |
+// | SHFT | ž ž |     | č Č |     |     |    |     |     |     |     | \ | | SHFT |
+//                    | GUI |     | SPC |    | ENT | SYM | ALT |
+            bindings = <
+   ___ &kp SI_N1   &si_n2 &kp SI_N3   &kp SI_N4 &kp SI_N5      &si_n6 &si_n7 &si_n8   &si_n9   &si_n0   &kp SI_MINUS
+   ___ xxx         xxx    &kp SI_SCAR xxx       xxx            xxx    xxx    &si_euro &si_lbkt &si_rbkt &si_grave
+   ___ &kp SI_ZCAR xxx    &kp SI_CCAR xxx       xxx            xxx    xxx    xxx      xxx      &si_bslh ___
+                          ___         ___       ___            ___    ___    ___
+            >;
+        };
+
+        si_colemak_ext_layer {
+// -----------------------------------------------------------------------------------------
+// | TAB  | Esc   | WhUp   | GoBack | GoFwd  |        |    | Home   | PgDown | PgUp  | End   | Del  | Print |
+// | EXT  | Back  | WhDown |        |        |        |    | Left   | Down   | Up    | Right | Back | Esc   |
+// | SHFT | BTCLR | BT1    | BT2    | BT3    | BT4    |    | Undo   | Redo   |       |       | Del  |       |
+//                         | GUI    | CTRL   | Return |    | Return | SYM    | L ALT |
+            bindings = <
+   ___ &kp ESC    &kp K_SCROLL_UP   &kp K_BACK   &kp K_FORWARD xxx              &kp HOME &kp PG_DN  &kp PG_UP &kp END   &kp DEL  &kp PSCRN
+   ___ &kp BSPC   &kp K_SCROLL_DOWN xxx          xxx           xxx              &kp LEFT &kp DOWN   &kp UP    &kp RIGHT &kp BSPC &kp ESC
+   ___ &bt BT_CLR &bt BT_SEL 0      &bt BT_SEL 1 &to SI_BASE   &to US_BASE      &kp UNDO &kp K_REDO xxx       xxx       &kp DEL  ___
+                                    ___          ___           &kp RET          ___      ___        ___
+            >;
+        };
+
+        us_colemak_base_layer {
+// -----------------------------------------------------------------------------------------
+// | TAB  |  Q  |  W  |  F  |  P   |  B  |    |  J  |  L   |  U  |  Y  | ; : | = +  |
+// | EXT  |  A  |  R  |  S  |  T   |  G  |    |  M  |  N   |  E  |  I  |  O  | ' "  |
+// | SHFT |  Z  |  X  |  C  |  D   |  V  |    |  K  |  H   | , < | . > | / ? | SHFT |
+//                    | GUI | CTRL | SPC |    | ENT | SYM  | ALT |
+            bindings = <
+   &kp TAB    &kp Q &kp W &kp F    &kp P     &kp B       &kp J   &kp L      &kp U     &kp Y   &kp SEMI &kp EQUAL
+   &mo US_EXT &kp A &kp R &kp S    &kp T     &kp G       &kp M   &kp N      &kp E     &kp I   &kp O    &kp SQT
+   &kp LSHFT  &kp Z &kp X &kp C    &kp D     &kp V       &kp K   &kp H      &kp COMMA &kp DOT &kp FSLH &kp RSFT
+                          &kp LGUI &kp LCTRL &kp SPACE   &kp RET &mo US_SYM &kp LALT
+            >;
+        };
+
+        us_colemak_sym_layer {
 // ----------------------------------------------------------------------------------------
 // | TAB  | 1 ! | 2 @ | 3 # | 4 $ | 5 % |    | 6 ^ | 7 & | 8 * | 9 ( | 0 ) | - _  |
 // | EXT  |     |     |     |     |     |    |     |     |     | [ { | ] } | ` ~  |
@@ -69,7 +280,7 @@
             >;
         };
 
-        si_colemak_ext_layer {
+        us_colemak_ext_layer {
 // -----------------------------------------------------------------------------------------
 // | TAB  | Esc   | WhUp   | GoBack | GoFwd  |        |    | Home   | PgDown | PgUp  | End   | Del  | Print |
 // | EXT  | Back  | WhDown |        |        |        |    | Left   | Down   | Up    | Right | Back | Esc   |
@@ -78,7 +289,7 @@
             bindings = <
    ___ &kp ESC    &kp K_SCROLL_UP   &kp K_BACK   &kp K_FORWARD xxx              &kp HOME &kp PG_DN  &kp PG_UP &kp END   &kp DEL  &kp PSCRN
    ___ &kp BSPC   &kp K_SCROLL_DOWN xxx          xxx           xxx              &kp LEFT &kp DOWN   &kp UP    &kp RIGHT &kp BSPC &kp ESC
-   ___ &bt BT_CLR &bt BT_SEL 0      &bt BT_SEL 1 &bt BT_SEL 2  &bt BT_SEL 3     &kp UNDO &kp K_REDO xxx       xxx       &kp DEL  ___
+   ___ &bt BT_CLR &bt BT_SEL 0      &bt BT_SEL 1 &to SI_BASE   &to US_BASE      &kp UNDO &kp K_REDO xxx       xxx       &kp DEL  ___
                                     ___          ___           &kp RET          ___      ___        ___
             >;
         };
