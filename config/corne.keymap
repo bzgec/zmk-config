@@ -55,12 +55,20 @@
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
  *  | TAB    | BT 0   | BT 1   | BT 2   | BT 3   | BT 4   |             |        |        |        |        |        |        |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  | EXT    |        |        |        |        |        |             |        |        |        |        |        |        |
+ *  | EXT    | BT CLR |        | EP ON  | EP OFF | Reset  |             |        |        |        |        |        |        |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  | Shift  |        |        |        |        |        |             |        |        |        |        |        | Shift  |
+ *  | Shift  |        |        |        |        | Bootl  |             |        |        |        |        |        | Shift  |
  *  +--------+--------+--------+----+---+----+---+----+---+----+   +----+---+----+---+----+---+----+--------+--------+--------+
  *                                  | Win    | Ctrl   | Enter  |   | Enter  | SYM    | L Alt  |
  *                                  +--------+--------+--------+   +--------+--------+--------+
+ *
+ * - 'BT 0-4': Select the x bluetooth profile
+ * - 'BT CLR': Clear bond between the keyboard and the host for the selected profile
+ * - 'Reset': Reset this side of the keyboard
+ * - 'Reset': Reset this side of the keyboard
+ * - 'Bootl': Reset this side of the keyboard to bootloader mode
+ * - 'EP ON': Enable external power (enable VCC power output)
+ * - 'EP OFF': Disable external power (disable VCC power output)
  *
  ***************************************************************************************************
  * Notes:
@@ -78,6 +86,7 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/ext_power.h>
 #include "keys_si.h"
 
 
@@ -207,15 +216,15 @@
 
         zmk_layer {
 // -----------------------------------------------------------------------------------------
-// | TAB  | BT 0  | BT1    | BT2    | BT3    | BT4    |    | Undo   | Redo   |       |       |      |       |
-// | EXT  | BTCLR |        |        |        |        |    |        |        |       |       |      |       |
-// | SHFT |       |        |        |        |        |    |        |        |       |       |      |       |
+// | TAB  | BT 0  | BT 1   | BT 2   | BT 3   | BT 4   |    |        |        |       |       |      |       |
+// | EXT  | BTCLR |        | EP ON  | EP OFF | Reset  |    |        |        |       |       |      |       |
+// | SHFT |       |        |        |        | Bootl  |    |        |        |       |       |      |       |
 //                         | GUI    | CTRL   | Return |    | Return | SYM    | L ALT |
             bindings = <
-   ___ &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4     xxx xxx xxx xxx xxx xxx
-   ___ &bt BT_CLR   xxx          xxx          xxx          xxx              xxx xxx xxx xxx xxx xxx
-   ___ xxx          xxx          xxx          xxx          xxx              xxx xxx xxx xxx xxx ___
-                                 ___          ___          ___              ___ ___ ___
+   ___ &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2     &bt BT_SEL 3      &bt BT_SEL 4     xxx xxx xxx xxx xxx xxx
+   ___ &bt BT_CLR   xxx          &ext_power EP_ON &ext_power EP_OFF &reset           xxx xxx xxx xxx xxx xxx
+   ___ xxx          xxx          xxx              xxx               &bootloader      xxx xxx xxx xxx xxx ___
+                                 ___              ___               ___              ___ ___ ___
             >;
         };
     };
