@@ -101,7 +101,7 @@
 
 / {
     behaviors {
-        #include "behaviors.dtsi"
+        #include "behaviors_mod_morph.dtsi"
     };
 
     keymap {
