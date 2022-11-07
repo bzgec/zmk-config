@@ -48,8 +48,8 @@
 #define SI_I I       // I
 #define SI_O O       // O
 #define SI_P P       // P
-#define SI_SCAR LBRC // Š
-#define SI_DSTR RBRC // Đ
+#define SI_SCAR LBKT // Š
+#define SI_DSTR RBKT // Đ
 // Row 3
 #define SI_A A       // A
 #define SI_S S       // S
