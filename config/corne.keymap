@@ -42,9 +42,9 @@
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
  *  | TAB    | ESC    | WhUp   | GoBack | GoFwd  |        |             | Home   | PgDn   | PgUp   | End    | Del    | Print  |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  | EXT    | Back   | WhDown | Shift  | Ctrl   | Alt    |             | Left   | Down   | Up     | Right  | Back   | ESC    |
+ *  | EXT    | Back   | WhDown |        |        |        |             | Left   | Down   | Up     | Right  | Back   | ESC    |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  | Shift  |        |        |        | To SI  | To US  |             | Undo   | Redo   |        |        |        | Shift  |
+ *  | Shift  |        |        |        |        |        |             | Undo   | Redo   |        |        |        | Shift  |
  *  +--------+--------+--------+----+---+----+---+----+---+----+   +----+---+----+---+----+---+----+--------+--------+--------+
  *                                  | Win    | Ctrl   | Enter  |   | Enter  | SYM    | L Alt  |
  *                                  +--------+--------+--------+   +--------+--------+--------+
@@ -55,7 +55,7 @@
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
  *  | TAB    | BT 0   | BT 1   | BT 2   | BT 3   | BT 4   |             |        |        |        |        |        |        |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  | EXT    | BT CLR |        | EP ON  | EP OFF | Reset  |             |        |        |        |        |        |        |
+ *  | EXT    | BT CLR |        | EP ON  | EP OFF | Reset  |             | To US  | To SI  |        |        |        |        |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
  *  | Shift  |        |        |        |        | Bootl  |             |        |        |        |        |        | Shift  |
  *  +--------+--------+--------+----+---+----+---+----+---+----+   +----+---+----+---+----+---+----+--------+--------+--------+
@@ -167,7 +167,7 @@
             bindings = <
    ___ &kp ESC  &kp K_SCROLL_UP   &kp K_BACK &kp K_FORWARD xxx              &kp HOME &kp PG_DN  &kp PG_UP &kp END   &kp DEL  &kp PSCRN
    ___ &kp BSPC &kp K_SCROLL_DOWN xxx        xxx           xxx              &kp LEFT &kp DOWN   &kp UP    &kp RIGHT &kp BSPC &kp ESC
-   ___ xxx      xxx               xxx        &to SI_BASE   &to US_BASE      &kp UNDO &kp K_REDO xxx       xxx       &kp DEL  ___
+   ___ xxx      xxx               xxx        xxx           xxx              &kp UNDO &kp K_REDO xxx       xxx       &kp DEL  ___
                                   ___        ___           &kp RET          ___      ___        ___
             >;
         };
@@ -207,10 +207,10 @@
 // | SHFT | BTCLR | BT1    | BT2    | BT3    | BT4    |    | Undo   | Redo   |       |       | Del  |       |
 //                         | GUI    | CTRL   | Return |    | Return | SYM    | L ALT |
             bindings = <
-   ___ &kp ESC  &kp K_SCROLL_UP   &kp K_BACK &kp K_FORWARD xxx              &kp HOME &kp PG_DN  &kp PG_UP &kp END   &kp DEL  &kp PSCRN
-   ___ &kp BSPC &kp K_SCROLL_DOWN xxx        xxx           xxx              &kp LEFT &kp DOWN   &kp UP    &kp RIGHT &kp BSPC &kp ESC
-   ___ xxx      xxx               xxx        &to SI_BASE   &to US_BASE      &kp UNDO &kp K_REDO xxx       xxx       &kp DEL  ___
-                                  ___        ___           &kp RET          ___      ___        ___
+   ___ &kp ESC  &kp K_SCROLL_UP   &kp K_BACK &kp K_FORWARD xxx          &kp HOME &kp PG_DN  &kp PG_UP &kp END   &kp DEL  &kp PSCRN
+   ___ &kp BSPC &kp K_SCROLL_DOWN xxx        xxx           xxx          &kp LEFT &kp DOWN   &kp UP    &kp RIGHT &kp BSPC &kp ESC
+   ___ xxx      xxx               xxx        xxx           xxx          &kp UNDO &kp K_REDO xxx       xxx       &kp DEL  ___
+                                  ___        ___           &kp RET      ___      ___        ___
             >;
         };
 
@@ -221,9 +221,9 @@
 // | SHFT |       |        |        |        | Bootl  |    |        |        |       |       |      |       |
 //                         | GUI    | CTRL   | Return |    | Return | SYM    | L ALT |
             bindings = <
-   ___ &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2     &bt BT_SEL 3      &bt BT_SEL 4     xxx xxx xxx xxx xxx xxx
-   ___ &bt BT_CLR   xxx          &ext_power EP_ON &ext_power EP_OFF &reset           xxx xxx xxx xxx xxx xxx
-   ___ xxx          xxx          xxx              xxx               &bootloader      xxx xxx xxx xxx xxx ___
+   ___ &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2     &bt BT_SEL 3      &bt BT_SEL 4     xxx         xxx         xxx xxx xxx xxx
+   ___ &bt BT_CLR   xxx          &ext_power EP_ON &ext_power EP_OFF &reset           &to SI_BASE &to US_BASE xxx xxx xxx xxx
+   ___ xxx          xxx          xxx              xxx               &bootloader      xxx         xxx         xxx xxx xxx ___
                                  ___              ___               ___              ___ ___ ___
             >;
         };
