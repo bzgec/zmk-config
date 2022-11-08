@@ -96,11 +96,10 @@
 
 #define SI_BASE 0  // Base layer, host layout: SI
 #define SI_SYM  1  // Symbols layer, host layout: SI
-#define SI_EXT  2  // Extend layer, host layout: SI
-#define US_BASE 3  // Base layer, host layout: US
-#define US_SYM  4  // Symbols layer, host layout: US
-#define US_EXT  5  // Extend layer, host layout: US
-#define L_ZMK   6  // ZMK layer
+#define US_BASE 2  // Base layer, host layout: US
+#define US_SYM  3  // Symbols layer, host layout: US
+#define L_EXT   4  // Extend layer
+#define L_ZMK   5  // ZMK layer
 
 // Go to ZMK layer when holding TAB key
 // On tab: TAB
@@ -138,7 +137,7 @@
 //                    | GUI | CTRL | SPC |    | ENT | SYM  | ALT |
             bindings = <
    TAB_L_ZMK  &kp SI_Q &kp SI_W &kp SI_F &kp SI_P  &kp SI_B    &kp SI_J &kp SI_L   &kp SI_U  &kp SI_Y &si_semi &si_equal
-   &mo SI_EXT &kp SI_A &kp SI_R &kp SI_S &kp SI_T  &kp SI_G    &kp SI_M &kp SI_N   &kp SI_E  &kp SI_I &kp SI_O &si_sqt
+   &mo L_EXT  &kp SI_A &kp SI_R &kp SI_S &kp SI_T  &kp SI_G    &kp SI_M &kp SI_N   &kp SI_E  &kp SI_I &kp SI_O &si_sqt
    &shft_caps &kp SI_Z &kp SI_X &kp SI_C &kp SI_D  &kp SI_V    &kp SI_K &kp SI_H   &si_comma &si_dot  &si_fslh &shft_caps
                                 &kp LGUI &kp LCTRL &kp SPACE   &kp RET  &mo SI_SYM &kp LALT
             >;
@@ -158,20 +157,6 @@
             >;
         };
 
-        si_colemak_ext_layer {
-// -----------------------------------------------------------------------------------------
-// | TAB  | Esc   | WhUp   | GoBack | GoFwd  |        |    | Home   | PgDown | PgUp  | End   | Del  | Print |
-// | EXT  | Back  | WhDown |        |        |        |    | Left   | Down   | Up    | Right | Back | Esc   |
-// | SHFT | BTCLR | BT1    | BT2    | BT3    | BT4    |    | Undo   | Redo   |       |       | Del  |       |
-//                         | GUI    | CTRL   | Return |    | Return | SYM    | L ALT |
-            bindings = <
-   ___ &kp ESC  &kp K_SCROLL_UP   &kp K_BACK &kp K_FORWARD xxx              &kp HOME &kp PG_DN  &kp PG_UP &kp END   &kp DEL  &kp PSCRN
-   ___ &kp BSPC &kp K_SCROLL_DOWN xxx        xxx           xxx              &kp LEFT &kp DOWN   &kp UP    &kp RIGHT &kp BSPC &kp ESC
-   ___ xxx      xxx               xxx        xxx           xxx              &kp UNDO &kp K_REDO xxx       xxx       &kp DEL  ___
-                                  ___        ___           &kp RET          ___      ___        ___
-            >;
-        };
-
         us_colemak_base_layer {
 // -----------------------------------------------------------------------------------------
 // | TAB  |  Q  |  W  |  F  |  P   |  B  |    |  J  |  L   |  U  |  Y  | ; : | = +  |
@@ -180,7 +165,7 @@
 //                    | GUI | CTRL | SPC |    | ENT | SYM  | ALT |
             bindings = <
    TAB_L_ZMK  &kp Q &kp W &kp F    &kp P     &kp B       &kp J   &kp L      &kp U     &kp Y   &kp SEMI &kp EQUAL
-   &mo US_EXT &kp A &kp R &kp S    &kp T     &kp G       &kp M   &kp N      &kp E     &kp I   &kp O    &kp SQT
+   &mo L_EXT  &kp A &kp R &kp S    &kp T     &kp G       &kp M   &kp N      &kp E     &kp I   &kp O    &kp SQT
    &shft_caps &kp Z &kp X &kp C    &kp D     &kp V       &kp K   &kp H      &kp COMMA &kp DOT &kp FSLH &shft_caps
                           &kp LGUI &kp LCTRL &kp SPACE   &kp RET &mo US_SYM &kp LALT
             >;
@@ -200,7 +185,7 @@
             >;
         };
 
-        us_colemak_ext_layer {
+        colemak_ext_layer {
 // -----------------------------------------------------------------------------------------
 // | TAB  | Esc   | WhUp   | GoBack | GoFwd  |        |    | Home   | PgDown | PgUp  | End   | Del  | Print |
 // | EXT  | Back  | WhDown |        |        |        |    | Left   | Down   | Up    | Right | Back | Esc   |
@@ -222,7 +207,7 @@
 //                         | GUI    | CTRL   | Return |    | Return | SYM    | L ALT |
             bindings = <
    ___ &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2     &bt BT_SEL 3      &bt BT_SEL 4     xxx         xxx         xxx xxx xxx xxx
-   ___ &bt BT_CLR   xxx          &ext_power EP_ON &ext_power EP_OFF &reset           &to SI_BASE &to US_BASE xxx xxx xxx xxx
+   ___ &bt BT_CLR   xxx          &ext_power EP_ON &ext_power EP_OFF &reset           &to US_BASE &to SI_BASE xxx xxx xxx xxx
    ___ xxx          xxx          xxx              xxx               &bootloader      xxx         xxx         xxx xxx xxx ___
                                  ___              ___               ___              ___ ___ ___
             >;
