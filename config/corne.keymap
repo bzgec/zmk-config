@@ -53,11 +53,11 @@
  * Extend layer 2:
  ***************************************************************************************************
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  | TAB    | ESC    | WhUp   | GoBack | GoFwd  |        |             | Home   | PgDn   | PgUp   | End    | Del    | Print  |
+ *  | TAB    | F1     | F2     | F3     | F4     | F5     |             | F6     | F7     | F8     | F9     | F10    |        |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  | XXX    | Back   | WhDown |        |        |        |             | Left   | Down   | Up     | Right  | Back   | ESC    |
+ *  | XXX    |        |        |        |        |        |             |        |        |        | F11    | F12    |        |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  | Shift  |        |        |        |        |        |             | Undo   | Redo   |        |        |        | Shift  |
+ *  | Shift  |        |        |        |        |        |             |        |        |        |        |        | Shift  |
  *  +--------+--------+--------+----+---+----+---+----+---+----+   +----+---+----+---+----+---+----+--------+--------+--------+
  *                                  | Win    | Ctrl   | Enter  |   | Enter  | XXX    | L Alt  |
  *                                  +--------+--------+--------+   +--------+--------+--------+
@@ -77,7 +77,6 @@
  *
  * - 'BT 0-4': Select the x bluetooth profile
  * - 'BT CLR': Clear bond between the keyboard and the host for the selected profile
- * - 'Reset': Reset this side of the keyboard
  * - 'Reset': Reset this side of the keyboard
  * - 'Bootl': Reset this side of the keyboard to bootloader mode
  * - 'EP ON': Enable external power (enable VCC power output)
