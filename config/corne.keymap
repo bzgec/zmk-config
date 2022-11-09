@@ -86,7 +86,7 @@
  ***************************************************************************************************
  * Notes:
  ***************************************************************************************************
- * - EXT2 layer is accessible with combo: 'EXT' + 'SYM'
+ * - EXT2 layer is accessible when pressing: 'EXT' + 'SYM'
  * - ZMK layer is accessible when holding TAB key
  * - Double tab on SHIFT key toggles CAPS_LOCK
  *
@@ -109,8 +109,8 @@
 
 
 #define SI_BASE 0  // Base layer, host layout: SI
-#define SI_SYM  1  // Symbols layer, host layout: SI
-#define US_BASE 2  // Base layer, host layout: US
+#define US_BASE 1  // Base layer, host layout: US
+#define SI_SYM  2  // Symbols layer, host layout: SI
 #define US_SYM  3  // Symbols layer, host layout: US
 #define L_EXT1  4  // Extend layer 1
 #define L_EXT2  5  // Extend layer 2
@@ -129,21 +129,6 @@
 
 
 / {
-    // | 0  | 1  | 2  | 3  | 4  | 5  |   | 6  | 7  | 8  | 9  | 10  | 11  |
-    // | 12 | 13 | 14 | 15 | 16 | 17 |   | 18 | 19 | 20 | 21 | 22  | 23  |
-    // | 24 | 25 | 26 | 27 | 28 | 29 |   | 30 | 31 | 32 | 33 | 34  | 35  |
-    //                | 36 | 37 | 38 |   | 39 | 40 | 41 |
-    combos {
-        compatible = "zmk,combos";
-        combo_ext_sym {
-          timeout-ms = <100>;
-          bindings = <&mo L_EXT2>;
-          key-positions = <12 40>;
-          // If layers parameter is ommited it defaults to global scope
-          //layers = <-1>;
-        };
-    };
-
     behaviors {
         #include "behaviors_mod_morph.dtsi"
 
@@ -159,10 +144,10 @@
     keymap {
         compatible = "zmk,keymap";
 
-        si_colemak_base_layer {
+        base_layer_si {
 // -----------------------------------------------------------------------------------------
 // | TAB  |  Q  |  W  |  F  |  P   |  B  |    |  J  |  L   |  U  |  Y  | ; : | = +  |
-// | EXT  |  A  |  R  |  S  |  T   |  G  |    |  M  |  N   |  E  |  I  |  O  | ' "  |
+// | EXT1 |  A  |  R  |  S  |  T   |  G  |    |  M  |  N   |  E  |  I  |  O  | ' "  |
 // | SHFT |  Z  |  X  |  C  |  D   |  V  |    |  K  |  H   | , < | . > | / ? | SHFT |
 //                    | GUI | CTRL | SPC |    | ENT | SYM  | ALT |
             bindings = <
@@ -173,24 +158,10 @@
             >;
         };
 
-        si_colemak_sym_layer {
-// ----------------------------------------------------------------------------------------
-// | TAB  | 1 ! | 2 @ | 3 # | 4 $ | 5 % |    | 6 ^ | 7 & | 8 * | 9 ( | 0 ) | - _  |
-// | EXT  |     |     | Š Š |     |     |    |     |     | € ° | [ { | ] } | ` ~  |
-// | SHFT | ž ž |     | č Č |     |     |    |     |     |     |     | \ | | SHFT |
-//                    | GUI |     | SPC |    | ENT | SYM | ALT |
-            bindings = <
-   ___ &kp SI_N1   &si_n2 &kp SI_N3   &kp SI_N4 &kp SI_N5      &si_n6 &si_n7 &si_n8   &si_n9   &si_n0   &kp SI_MINUS
-   ___ xxx         xxx    &kp SI_SCAR xxx       xxx            xxx    xxx    &si_euro &si_lbkt &si_rbkt &si_grave
-   ___ &kp SI_ZCAR xxx    &kp SI_CCAR xxx       xxx            xxx    xxx    xxx      xxx      &si_bslh ___
-                          ___         ___       ___            ___    ___    ___
-            >;
-        };
-
-        us_colemak_base_layer {
+        base_layer_us {
 // -----------------------------------------------------------------------------------------
 // | TAB  |  Q  |  W  |  F  |  P   |  B  |    |  J  |  L   |  U  |  Y  | ; : | = +  |
-// | EXT  |  A  |  R  |  S  |  T   |  G  |    |  M  |  N   |  E  |  I  |  O  | ' "  |
+// | EXT1 |  A  |  R  |  S  |  T   |  G  |    |  M  |  N   |  E  |  I  |  O  | ' "  |
 // | SHFT |  Z  |  X  |  C  |  D   |  V  |    |  K  |  H   | , < | . > | / ? | SHFT |
 //                    | GUI | CTRL | SPC |    | ENT | SYM  | ALT |
             bindings = <
@@ -201,45 +172,59 @@
             >;
         };
 
-        us_colemak_sym_layer {
+        sym_layer_si {
 // ----------------------------------------------------------------------------------------
 // | TAB  | 1 ! | 2 @ | 3 # | 4 $ | 5 % |    | 6 ^ | 7 & | 8 * | 9 ( | 0 ) | - _  |
-// | EXT  |     |     |     |     |     |    |     |     |     | [ { | ] } | ` ~  |
-// | SHFT |     |     |     |     |     |    |     |     |     |     | \ | | SHFT |
-//                    | GUI |     | SPC |    | ENT | SYM | ALT |
+// | EXT2 |     |     | Š Š |     |     |    |     |     | € ° | [ { | ] } | ` ~  |
+// | SHFT | ž ž |     | č Č |     |     |    |     |     |     |     | \ | | SHFT |
+//                    | GUI |     | SPC |    | ENT | XXX | ALT |
             bindings = <
-   ___ &kp N1 &kp N2 &kp N3 &kp N4 &kp N5      &kp N6 &kp N7 &kp N8 &kp N9   &kp N0   &kp MINUS
-   ___ xxx    xxx    xxx    xxx    xxx         xxx    xxx    xxx    &kp LBKT &kp RBKT &kp GRAVE
-   ___ xxx    xxx    xxx    xxx    xxx         xxx    xxx    xxx    xxx      &kp BSLH ___
-                            ___    ___    ___         ___    ___    ___
+   ___        &kp SI_N1   &si_n2 &kp SI_N3   &kp SI_N4 &kp SI_N5      &si_n6 &si_n7 &si_n8   &si_n9   &si_n0   &kp SI_MINUS
+   &mo L_EXT2 xxx         xxx    &kp SI_SCAR xxx       xxx            xxx    xxx    &si_euro &si_lbkt &si_rbkt &si_grave
+   ___        &kp SI_ZCAR xxx    &kp SI_CCAR xxx       xxx            xxx    xxx    xxx      xxx      &si_bslh ___
+                                 ___         ___       ___            ___    xxx    ___
+            >;
+        };
+
+        sym_layer_us {
+// ----------------------------------------------------------------------------------------
+// | TAB  | 1 ! | 2 @ | 3 # | 4 $ | 5 % |    | 6 ^ | 7 & | 8 * | 9 ( | 0 ) | - _  |
+// | EXT2 |     |     |     |     |     |    |     |     |     | [ { | ] } | ` ~  |
+// | SHFT |     |     |     |     |     |    |     |     |     |     | \ | | SHFT |
+//                    | GUI |     | SPC |    | ENT | XXX | ALT |
+            bindings = <
+   ___        &kp N1 &kp N2 &kp N3 &kp N4 &kp N5      &kp N6 &kp N7 &kp N8 &kp N9   &kp N0   &kp MINUS
+   &mo L_EXT2 xxx    xxx    xxx    xxx    xxx         xxx    xxx    xxx    &kp LBKT &kp RBKT &kp GRAVE
+   ___        xxx    xxx    xxx    xxx    xxx         xxx    xxx    xxx    xxx      &kp BSLH ___
+                            ___    ___    ___         ___    xxx    ___
             >;
         };
 
         ext1_layer {
 // -----------------------------------------------------------------------------------------
 // | TAB  | Esc   | WhUp   | GoBack | GoFwd  |        |    | Home   | PgDown | PgUp  | End   | Del  | Print |
-// | EXT  | Back  | WhDown |        |        |        |    | Left   | Down   | Up    | Right | Back | Esc   |
+// | XXX  | Back  | WhDown |        |        |        |    | Left   | Down   | Up    | Right | Back | Esc   |
 // | SHFT |       |        |        |        |        |    | Undo   | Redo   |       |       | Del  |       |
-//                         | GUI    | CTRL   | Return |    | Return | SYM    | L ALT |
+//                         | GUI    | CTRL   | Return |    | Return | EXT2   | L ALT |
             bindings = <
    ___ &kp ESC  &kp K_SCROLL_UP   &kp K_BACK &kp K_FORWARD xxx          &kp HOME &kp PG_DN  &kp PG_UP &kp END   &kp DEL  &kp PSCRN
-   ___ &kp BSPC &kp K_SCROLL_DOWN xxx        xxx           xxx          &kp LEFT &kp DOWN   &kp UP    &kp RIGHT &kp BSPC &kp ESC
+   xxx &kp BSPC &kp K_SCROLL_DOWN xxx        xxx           xxx          &kp LEFT &kp DOWN   &kp UP    &kp RIGHT &kp BSPC &kp ESC
    ___ xxx      xxx               xxx        xxx           xxx          &kp UNDO &kp K_REDO xxx       xxx       &kp DEL  ___
-                                  ___        ___           &kp RET      ___      ___        ___
+                                  ___        ___           &kp RET      ___      &mo L_EXT2 ___
             >;
         };
 
         ext2_layer {
 // -----------------------------------------------------------------------------------------
 // | TAB  | F1    | F2     | F3     | F4     | F5     |    | F6     | F7     | F8    | F9    | F10  |       |
-// | EXT  |       |        |        |        |        |    |        |        |       | F11   | F12          |
+// | XXX  |       |        |        |        |        |    |        |        |       | F11   | F12          |
 // | SHFT |       |        |        |        |        |    |        |        |       |       |              |
-//                         | GUI    | CTRL   | Return |    | Return | SYM    | L ALT |
+//                         | GUI    | CTRL   | Return |    | Return | XXX    | L ALT |
             bindings = <
-   ___ &kp F1  &kp F2 &kp F3 &kp F4 &kp F5     &kp F6 &kp F7 &kp F8 &kp F9  &kp F10 xxx
-   ___ xxx     xxx    xxx    xxx    xxx        xxx    xxx    xxx    &kp F11 &kp F12 xxx
-   ___ xxx     xxx    xxx    xxx    xxx        xxx    xxx    xxx    xxx     xxx     ___
-                      ___    ___    ___        ___    ___    ___
+   ___ &kp F1 &kp F2 &kp F3 &kp F4 &kp F5     &kp F6 &kp F7 &kp F8 &kp F9  &kp F10 xxx
+   xxx xxx    xxx    xxx    xxx    xxx        xxx    xxx    xxx    &kp F11 &kp F12 xxx
+   ___ xxx    xxx    xxx    xxx    xxx        xxx    xxx    xxx    xxx     xxx     ___
+                     ___    ___    ___        ___    xxx    ___
             >;
         };
 
