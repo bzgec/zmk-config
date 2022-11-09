@@ -64,9 +64,16 @@ si_n2: si-2-at {
 };
 
 // 6 ^
-si_n6: si-6-caret {
+si_n6_lin: si-6-caret-lin {
   compatible = "zmk,behavior-mod-morph";
-  label = "SI_N6_CARET";
+  label = "SI_N6_CARET_LIN";
+  #binding-cells = <0>;
+  bindings = <&kp SI_N6>, <&kp LS(SI_CARET)>;
+  mods = <(MOD_LSFT|MOD_RSFT)>;
+};
+si_n6_win: si-6-caret-win {
+  compatible = "zmk,behavior-mod-morph";
+  label = "SI_N6_CARET_WIN";
   #binding-cells = <0>;
   bindings = <&kp SI_N6>, <&kp SI_CARET>;
   mods = <(MOD_LSFT|MOD_RSFT)>;
@@ -136,9 +143,16 @@ si_rbkt: si-rbkt-rbrc {
 };
 
 // ` ~
-si_grave: si-grave-tilde {
+si_grave_lin: si-grave-tilde-lin {
   compatible = "zmk,behavior-mod-morph";
-  label = "SI_GRAVE_TILDE";
+  label = "SI_GRAVE_TILDE_LIN";
+  #binding-cells = <0>;
+  bindings = <&kp LS(SI_GRAVE)>, <&kp LS(SI_TILDE)>;
+  mods = <(MOD_LSFT|MOD_RSFT)>;
+};
+si_grave_win: si-grave-tilde_win {
+  compatible = "zmk,behavior-mod-morph";
+  label = "SI_GRAVE_TILDE_WIN";
   #binding-cells = <0>;
   bindings = <&kp SI_GRAVE>, <&kp SI_TILDE>;
   mods = <(MOD_LSFT|MOD_RSFT)>;

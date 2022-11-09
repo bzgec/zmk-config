@@ -17,6 +17,12 @@ My Slovenian Colemak-DH angle mode
 - Double tab on `SHIFT` key toggles `CAPS_LOCK`
 - `Extend 2 layer`_ layer is accessible when pressing: `EXT1 + SYM`
 - `ZMK layer`_ is accessible when holding `TAB` key
+- Difference between "SI Linux" and "SI Windows" is in how a few special characters
+  are implemented but for the end use there should be no difference
+
+  - `si_n6_lin`    -> `si_n6_win` (`^`)
+  - `si_grave_lin` -> `si_grave_win` (`\``, `~`)
+
 
 Base layout
 -----------
@@ -50,7 +56,8 @@ ZMK layer
 - `EP ON`: Enable external power (enable VCC power output)
 - `EP OFF`: Disable external power (disable VCC power output)
 - `To US`: Switch keyboard layout to match US host layout
-- `To SI`: Switch keyboard layout to match SI host layout
+- `To SI Linux`: Switch keyboard layout to match SI host layout, Linux host
+- `To SI Win`: Switch keyboard layout to match SI host layout, Windows host
 
 
 Other
