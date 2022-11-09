@@ -15,8 +15,8 @@ My Slovenian Colemak-DH angle mode
 ==================================
 
 - Double tab on `SHIFT` key toggles `CAPS_LOCK`
-- `EXT2 <Extend 2 layer>`_ layer is accessible when pressing: `EXT1 + SYM`
-- `ZMK <ZMK layer>`_ layer is accessible when holding `TAB` key
+- `Extend 2 layer`_ layer is accessible when pressing: `EXT1 + SYM`
+- `ZMK layer`_ is accessible when holding `TAB` key
 
 Base layout
 -----------
