@@ -122,17 +122,17 @@
  * │    │    │    │                        │    │    │    │    │
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
-// Row 1 (AltGr + Shift)
-#define SI_TILDE LS(RA(SI_N1)) // ~
-#define SI_CARN LS(RA(SI_N2))  // ˇ (dead)
-#define SI_CARET LS(RA(SI_N3)) // ^ (dead)
-#define SI_BREV LS(RA(SI_N4))  // ˘ (dead)
-#define SI_RNGA LS(RA(SI_N5))  // ° (dead)
-#define SI_OGON LS(RA(SI_N6))  // ˛ (dead)
-#define SI_GRAVE LS(RA(SI_N7)) // `
-#define SI_DOTA LS(RA(SI_N8))  // ˙ (dead)
-#define SI_ACUT LS(RA(SI_N9))  // ´ (dead)
-#define SI_DACU LS(RA(SI_N0))  // ˝ (dead)
+// Row 1 AltGr
+#define SI_TILDE RA(SI_N1) // ~
+#define SI_CARN RA(SI_N2)  // ˇ (dead)
+#define SI_CARET RA(SI_N3) // ^ (dead)
+#define SI_BREV RA(SI_N4)  // ˘ (dead)
+#define SI_RNGA RA(SI_N5)  // ° (dead)
+#define SI_OGON RA(SI_N6)  // ˛ (dead)
+#define SI_GRAVE RA(SI_N7) // `
+#define SI_DOTA RA(SI_N8)  // ˙ (dead)
+#define SI_ACUT RA(SI_N9)  // ´ (dead)
+#define SI_DACU RA(SI_N0)  // ˝ (dead)
 // Row 2 (only AltGr)
 #define SI_BSLH RA(SI_Q)   // (backslash)
 #define SI_PIPE RA(SI_W)   // |
