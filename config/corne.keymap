@@ -55,9 +55,10 @@
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
  *  | TAB    | F1     | F2     | F3     | F4     | F5     |             | F6     | F7     | F8     | F9     | F10    |        |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  | XXX    |        |        |        |        |        |             |        |        |        | F11    | F12    |        |
+ *  | XXX    |        |        |        |        |        |             | Vol    | Vol Dn | Vol Up | F11    | F12    |        |
+ *  |        |        |        |        |        |        |             | Mute   |        |        |        |        |        |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  | Shift  |        |        |        |        |        |             |        |        |        |        |        | Shift  |
+ *  | Shift  |        |        |        |        |        |             |        | Bri Dn | Bri Up |        |        | Shift  |
  *  +--------+--------+--------+----+---+----+---+----+---+----+   +----+---+----+---+----+---+----+--------+--------+--------+
  *                                  | Win    | Ctrl   | Enter  |   | Enter  | XXX    | L Alt  |
  *                                  +--------+--------+--------+   +--------+--------+--------+
@@ -248,15 +249,15 @@
 
         ext2_layer {
 // -----------------------------------------------------------------------------------------
-// | TAB  | F1    | F2     | F3     | F4     | F5     |    | F6     | F7     | F8    | F9    | F10  |       |
-// | XXX  |       |        |        |        |        |    |        |        |       | F11   | F12  |       |
-// | SHFT |       |        |        |        |        |    |        |        |       |       |      |       |
-//                         | GUI    | CTRL   | Return |    | Return | XXX    | L ALT |
+// | TAB  | F1    | F2     | F3     | F4     | F5     |    | F6       | F7       | F8     | F9      | F10  |       |
+// | XXX  |       |        |        |        |        |    | Vol Mute | Vol Down | Vol Up | F11     | F12  |       |
+// | SHFT |       |        |        |        |        |    | Bri Max  | Bri Down | Bri Up | Bri Min |      |       |
+//                         | GUI    | CTRL   | Return |    | Return   | XXX      | L ALT |
             bindings = <
-   ___ &kp F1 &kp F2 &kp F3 &kp F4 &kp F5     &kp F6 &kp F7 &kp F8 &kp F9  &kp F10 xxx
-   xxx xxx    xxx    xxx    xxx    xxx        xxx    xxx    xxx    &kp F11 &kp F12 xxx
-   ___ xxx    xxx    xxx    xxx    xxx        xxx    xxx    xxx    xxx     xxx     ___
-                     ___    ___    ___        ___    xxx    ___
+   ___ &kp F1 &kp F2 &kp F3 &kp F4 &kp F5       &kp F6     &kp F7       &kp F8       &kp F9  &kp F10 xxx
+   xxx xxx    xxx    xxx    xxx    xxx          &kp C_MUTE &kp C_VOL_DN &kp C_VOL_UP &kp F11 &kp F12 xxx
+   ___ xxx    xxx    xxx    xxx    xxx          xxx        &kp C_BRI_DN &kp C_BRI_UP xxx     xxx     ___
+                     ___    ___    ___          ___        xxx          ___
             >;
         };
 
