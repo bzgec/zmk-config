@@ -124,7 +124,7 @@
     "Space",
     {x: 1,w: 1.5,h: 1.5
     },
-    "Return",
+    "Enter",
     {c: "#ffbdbd",w: 1.5,h: 1.5
     },
     "SYM"

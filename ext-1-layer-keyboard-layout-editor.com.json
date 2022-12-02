@@ -121,10 +121,10 @@
     "Ctrl",
     {w: 1.5,h: 1.5
     },
-    "Return",
+    "Enter",
     {x: 1,w: 1.5,h: 1.5
     },
-    "Return",
+    "Enter",
     {w: 1.5,h: 1.5
     },
     "EXT 2"

@@ -14,7 +14,7 @@ Custom ZMK Corne keymap
 My Slovenian Colemak-DH angle mode
 ==================================
 
-- Double tab on `SHIFT` key toggles `CAPS_LOCK`
+- Double tap on `SHIFT` key toggles `CAPS_LOCK`
 - `Extend 2 layer`_ layer is accessible when pressing: `EXT1 + SYM`
 - `ZMK layer`_ is accessible when holding `TAB` key
 - Difference between "SI Linux" and "SI Windows" is in how a few special characters
