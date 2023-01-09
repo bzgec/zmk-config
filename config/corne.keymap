@@ -57,7 +57,8 @@
  *  | XXX    |        |        |        |        |        |             | Vol    | Vol Dn | Vol Up | F11    | F12    |        |
  *  |        |        |        |        |        |        |             | Mute   |        |        |        |        |        |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  | Shift  |        |        |        |        |        |             |        | Bri Dn | Bri Up |        |        | Shift  |
+ *  | Shift  |        |        |        |        |        |             | Mic    | Bri Dn | Bri Up |        |        | Shift  |
+ *  |        |        |        |        |        |        |             | Mute   |        |        |        |        |        |
  *  +--------+--------+--------+----+---+----+---+----+---+----+   +----+---+----+---+----+---+----+--------+--------+--------+
  *                                  | Win    | Ctrl   | Enter  |   | Enter  | XXX    | L Alt  |
  *                                  +--------+--------+--------+   +--------+--------+--------+
@@ -96,6 +97,10 @@
  *
  *   - `si_n6_lin`    -> `si_n6_win` (`^`)
  *   - `si_grave_lin` -> `si_grave_win` (`\``, `~`)
+ *   - microphone mute (F20 -> Win+Shift+A)
+ *     Linux: KC_F20 should work as XF86AudioMicMute on most linux distributions - https://github.com/qmk/qmk_firmware/issues/17749#issuecomment-1192446662
+ *     Windows: Win+Shift+A as this is default shortcut for Video Conference Mute (VCM) in PowerToys
+ *              (this means you need to install PowerToys and enable VCM)
  *
  ***************************************************************************************************
  * TODO:
@@ -119,9 +124,13 @@
 #define SI_BASE_WIN 1  // Base layer, host layout: SI, Windows host
 #define SI_SYM_LIN  2  // Symbols layer, host layout: SI, Linux host
 #define SI_SYM_WIN  3  // Symbols layer, host layout: SI, Windows host
-#define L_EXT1      4  // Extend layer 1
-#define L_EXT2      5  // Extend layer 2
-#define L_ZMK       6  // ZMK layer
+#define L_EXT1_LIN  4  // Extend layer 1: Linux host
+#define L_EXT1_WIN  5  // Extend layer 1: Windows host
+#define L_EXT2_LIN  6  // Extend layer 2: Linux host
+#define L_EXT2_WIN  7  // Extend layer 2: Windows host
+#define L_ZMK       8  // ZMK layer
+
+#define _MIC_MUTE_WIN  LG(LS(SI_A))
 
 // Go to ZMK layer when holding TAB key
 // On tap: TAB
@@ -158,74 +167,98 @@
 // | SHFT |  Z  |  X  |  C  |  D   |  V  |    |  K  |  H   | , < | . > | / ? | SHFT |
 //                    | GUI | CTRL | SPC |    | ENT | SYM  | ALT |
             bindings = <
-   TAB_L_ZMK  &kp SI_Q &kp SI_W &kp SI_F &kp SI_P  &kp SI_B    &kp SI_J &kp SI_L       &kp SI_U  &kp SI_Y &si_semi &si_equal
-   &mo L_EXT1 &kp SI_A &kp SI_R &kp SI_S &kp SI_T  &kp SI_G    &kp SI_M &kp SI_N       &kp SI_E  &kp SI_I &kp SI_O &si_sqt
-   &shft_caps &kp SI_Z &kp SI_X &kp SI_C &kp SI_D  &kp SI_V    &kp SI_K &kp SI_H       &si_comma &si_dot  &si_fslh &shft_caps
-                                &kp LGUI &kp LCTRL &kp SPACE   &kp RET  &mo SI_SYM_LIN &kp LALT
+   TAB_L_ZMK      &kp SI_Q &kp SI_W &kp SI_F &kp SI_P  &kp SI_B    &kp SI_J &kp SI_L       &kp SI_U  &kp SI_Y &si_semi &si_equal
+   &mo L_EXT1_LIN &kp SI_A &kp SI_R &kp SI_S &kp SI_T  &kp SI_G    &kp SI_M &kp SI_N       &kp SI_E  &kp SI_I &kp SI_O &si_sqt
+   &shft_caps     &kp SI_Z &kp SI_X &kp SI_C &kp SI_D  &kp SI_V    &kp SI_K &kp SI_H       &si_comma &si_dot  &si_fslh &shft_caps
+                                    &kp LGUI &kp LCTRL &kp SPACE   &kp RET  &mo SI_SYM_LIN &kp LALT
             >;
         };
-
-        base_layer_si_win {
+        // Changing only
+        // - `SI_SYM_LIN`    -> `SI_SYM_WIN`
+        // - `L_EXT1_LIN`    -> `L_EXT1_WIN`
+        base_layer_win {
             bindings = <
-   ___ ___ ___ ___ ___ ___   ___ ___            ___ ___ ___ ___
-   ___ ___ ___ ___ ___ ___   ___ ___            ___ ___ ___ ___
-   ___ ___ ___ ___ ___ ___   ___ ___            ___ ___ ___ ___
-               ___ ___ ___   ___ &mo SI_SYM_WIN ___
+   ___            ___ ___ ___ ___ ___   ___ ___            ___ ___ ___ ___
+   &mo L_EXT1_WIN ___ ___ ___ ___ ___   ___ ___            ___ ___ ___ ___
+   ___            ___ ___ ___ ___ ___   ___ ___            ___ ___ ___ ___
+                          ___ ___ ___   ___ &mo SI_SYM_WIN ___
             >;
         };
 
 
-        sym_layer_si_linux {
+        sym_layer_linux {
 // ----------------------------------------------------------------------------------------
 // | TAB  | 1 ! | 2 @ | 3 # | 4 $ | 5 % |    | 6 ^ | 7 & | 8 * | 9 ( | 0 ) | - _  |
 // | EXT2 |     |     | Š Š |     |     |    |     |     | € ° | [ { | ] } | ` ~  |
 // | SHFT | ž ž |     | č Č |     |     |    |     |     |     |     | \ | | SHFT |
 //                    | GUI |     | SPC |    | ENT | XXX | ALT |
             bindings = <
-   ___        &kp SI_N1   &si_n2 &kp SI_N3   &kp SI_N4 &kp SI_N5      &si_n6_lin &si_n7 &si_n8   &si_n9   &si_n0   &kp SI_MINUS
-   &mo L_EXT2 xxx         xxx    &kp SI_SCAR xxx       xxx            xxx        xxx    &si_euro &si_lbkt &si_rbkt &si_grave_lin
-   ___        &kp SI_ZCAR xxx    &kp SI_CCAR xxx       xxx            xxx        xxx    xxx      xxx      &si_bslh ___
-                                 ___         ___       ___            ___        xxx    ___
+   ___            &kp SI_N1   &si_n2 &kp SI_N3   &kp SI_N4 &kp SI_N5      &si_n6_lin &si_n7 &si_n8   &si_n9   &si_n0   &kp SI_MINUS
+   &mo L_EXT2_LIN xxx         xxx    &kp SI_SCAR xxx       xxx            xxx        xxx    &si_euro &si_lbkt &si_rbkt &si_grave_lin
+   ___            &kp SI_ZCAR xxx    &kp SI_CCAR xxx       xxx            xxx        xxx    xxx      xxx      &si_bslh ___
+                                     ___         ___       ___            ___        xxx    ___
             >;
         };
         // Changing only
+        // - `L_EXT2_LIN`    -> `L_EXT2_WIN`
         // - `&si_n6_lin`    -> `&si_n6_win`
         // - `&si_grave_lin` -> `&si_grave_win`
         sym_layer_si_win {
             bindings = <
-   ___        &kp SI_N1   &si_n2 &kp SI_N3   &kp SI_N4 &kp SI_N5      &si_n6_win &si_n7 &si_n8   &si_n9   &si_n0   &kp SI_MINUS
-   &mo L_EXT2 xxx         xxx    &kp SI_SCAR xxx       xxx            xxx        xxx    &si_euro &si_lbkt &si_rbkt &si_grave_win
-   ___        &kp SI_ZCAR xxx    &kp SI_CCAR xxx       xxx            xxx        xxx    xxx      xxx      &si_bslh ___
-                                 ___         ___       ___            ___        xxx    ___
+   ___            &kp SI_N1   &si_n2 &kp SI_N3   &kp SI_N4 &kp SI_N5      &si_n6_win &si_n7 &si_n8   &si_n9   &si_n0   &kp SI_MINUS
+   &mo L_EXT2_WIN xxx         xxx    &kp SI_SCAR xxx       xxx            xxx        xxx    &si_euro &si_lbkt &si_rbkt &si_grave_win
+   ___            &kp SI_ZCAR xxx    &kp SI_CCAR xxx       xxx            xxx        xxx    xxx      xxx      &si_bslh ___
+                                     ___         ___       ___            ___        xxx    ___
             >;
         };
 
 
-        ext1_layer {
+        ext1_layer_lin {
 // -----------------------------------------------------------------------------------------
 // | TAB  | Esc   | WhUp   | GoBack | GoFwd  |        |    | Home   | PgDown | PgUp  | End   | Del  | Print |
 // | XXX  | Back  | WhDown |        |        |        |    | Left   | Down   | Up    | Right | Back | Esc   |
 // | SHFT |       |        |        |        |        |    | Undo   | Redo   |       |       | Del  |       |
 //                         | GUI    | CTRL   | Enter  |    | Enter  | EXT2   | L ALT |
             bindings = <
-   ___ &kp ESC  &kp K_SCROLL_UP   &kp C_AC_BACK &kp C_AC_FORWARD xxx          &kp HOME &kp PG_DN  &kp PG_UP &kp END   &kp DEL  &kp PSCRN
-   xxx &kp BSPC &kp K_SCROLL_DOWN xxx           xxx              xxx          &kp LEFT &kp DOWN   &kp UP    &kp RIGHT &kp BSPC &kp ESC
-   ___ xxx      xxx               xxx           xxx              xxx          &kp UNDO &kp K_REDO xxx       xxx       &kp DEL  ___
-                                  ___           ___              &kp RET      ___      &mo L_EXT2 ___
+   ___ &kp ESC  &kp K_SCROLL_UP   &kp C_AC_BACK &kp C_AC_FORWARD xxx          &kp HOME &kp PG_DN      &kp PG_UP &kp END   &kp DEL  &kp PSCRN
+   xxx &kp BSPC &kp K_SCROLL_DOWN xxx           xxx              xxx          &kp LEFT &kp DOWN       &kp UP    &kp RIGHT &kp BSPC &kp ESC
+   ___ xxx      xxx               xxx           xxx              xxx          &kp UNDO &kp K_REDO     xxx       xxx       &kp DEL  ___
+                                  ___           ___              &kp RET      ___      &mo L_EXT2_LIN ___
+            >;
+        };
+        // Changing only
+        // - `L_EXT2_LIN`    -> `L_EXT2_WIN`
+        ext1_layer_win {
+            bindings = <
+   ___ &kp ESC  &kp K_SCROLL_UP   &kp C_AC_BACK &kp C_AC_FORWARD xxx          &kp HOME &kp PG_DN      &kp PG_UP &kp END   &kp DEL  &kp PSCRN
+   xxx &kp BSPC &kp K_SCROLL_DOWN xxx           xxx              xxx          &kp LEFT &kp DOWN       &kp UP    &kp RIGHT &kp BSPC &kp ESC
+   ___ xxx      xxx               xxx           xxx              xxx          &kp UNDO &kp K_REDO     xxx       xxx       &kp DEL  ___
+                                  ___           ___              &kp RET      ___      &mo L_EXT2_WIN ___
             >;
         };
 
-        ext2_layer {
+
+        ext2_layer_lin {
 // -----------------------------------------------------------------------------------------
 // | TAB  | F1    | F2     | F3     | F4     | F5     |    | F6       | F7       | F8     | F9      | F10  |       |
 // | XXX  |       |        |        |        |        |    | Vol Mute | Vol Down | Vol Up | F11     | F12  |       |
-// | SHFT |       |        |        |        |        |    | Bri Max  | Bri Down | Bri Up | Bri Min |      |       |
-//                         | GUI    | CTRL   | Enter  |    | Enter    | XXX      | L ALT |
+// | SHFT |       |        |        |        |        |    | Mic Mute | Bri Down | Bri Up | Bri Min |      |       |
+//                         | GUI    | CTRL   | Enter  |    | Enter    | XXX      | L ALT  |
             bindings = <
    ___ &kp F1 &kp F2 &kp F3 &kp F4 &kp F5       &kp F6     &kp F7       &kp F8       &kp F9  &kp F10 xxx
    xxx xxx    xxx    xxx    xxx    xxx          &kp C_MUTE &kp C_VOL_DN &kp C_VOL_UP &kp F11 &kp F12 xxx
-   ___ xxx    xxx    xxx    xxx    xxx          xxx        &kp C_BRI_DN &kp C_BRI_UP xxx     xxx     ___
+   ___ xxx    xxx    xxx    xxx    xxx          &kp F20    &kp C_BRI_DN &kp C_BRI_UP xxx     xxx     ___
                      ___    ___    ___          ___        xxx          ___
+            >;
+        };
+        // Changing only
+        // - `F20` -> `_MIC_MUTE_WIN`
+        ext2_layer_win {
+            bindings = <
+   ___ &kp F1 &kp F2 &kp F3 &kp F4 &kp F5       &kp F6            &kp F7       &kp F8       &kp F9  &kp F10 xxx
+   xxx xxx    xxx    xxx    xxx    xxx          &kp C_MUTE        &kp C_VOL_DN &kp C_VOL_UP &kp F11 &kp F12 xxx
+   ___ xxx    xxx    xxx    xxx    xxx          &kp _MIC_MUTE_WIN &kp C_BRI_DN &kp C_BRI_UP xxx     xxx     ___
+                     ___    ___    ___          ___               xxx          ___
             >;
         };
 
