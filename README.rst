@@ -55,7 +55,6 @@ ZMK layer
 - `Bootl`: Reset this side of the keyboard to bootloader mode
 - `EP ON`: Enable external power (enable VCC power output)
 - `EP OFF`: Disable external power (disable VCC power output)
-- `To US`: Switch keyboard layout to match US host layout
 - `To SI Linux`: Switch keyboard layout to match SI host layout, Linux host
 - `To SI Win`: Switch keyboard layout to match SI host layout, Windows host
 

@@ -8,7 +8,6 @@
  * Slovenian Colemak-DH angle mode variation
  ***************************************************************************************************
  * Host layout: SI
- * Host layout: US (missing Š, č, ž, €, °)
  *
  ***************************************************************************************************
  * Base layer:
@@ -69,7 +68,7 @@
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
  *  | XXX    | BT 0   | BT 1   | BT 2   | BT 3   | BT 4   |             |        |        |        |        |        |        |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  |        | BT CLR |        | EP ON  | EP OFF | Reset  |             | To US  | To SI  | To SI  |        |        |        |
+ *  |        | BT CLR |        | EP ON  | EP OFF | Reset  |             |        | To SI  | To SI  |        |        |        |
  *  |        |        |        |        |        |        |             |        | Linux  | Win    |        |        |        |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
  *  |        |        |        |        |        | Bootl  |             |        |        |        |        |        |        |
@@ -82,7 +81,6 @@
  * - `Reset`: Reset this side of the keyboard
  * - `Bootl`: Reset this side of the keyboard to bootloader mode
  * - `EP ON`: Enable external power (enable VCC power output)
- * - `To US`: Switch keyboard layout to match US host layout
  * - `To SI Linux`: Switch keyboard layout to match SI host layout, Linux host
  * - `To SI Win`: Switch keyboard layout to match SI host layout, Windows host
  * - `EP OFF`: Disable external power (disable VCC power output)
@@ -119,13 +117,11 @@
 
 #define SI_BASE_LIN 0  // Base layer, host layout: SI, Linux host
 #define SI_BASE_WIN 1  // Base layer, host layout: SI, Windows host
-#define US_BASE     2  // Base layer, host layout: US
-#define SI_SYM_LIN  3  // Symbols layer, host layout: SI, Linux host
-#define SI_SYM_WIN  4  // Symbols layer, host layout: SI, Windows host
-#define US_SYM      5  // Symbols layer, host layout: US
-#define L_EXT1      6  // Extend layer 1
-#define L_EXT2      7  // Extend layer 2
-#define L_ZMK       8  // ZMK layer
+#define SI_SYM_LIN  2  // Symbols layer, host layout: SI, Linux host
+#define SI_SYM_WIN  3  // Symbols layer, host layout: SI, Windows host
+#define L_EXT1      4  // Extend layer 1
+#define L_EXT2      5  // Extend layer 2
+#define L_ZMK       6  // ZMK layer
 
 // Go to ZMK layer when holding TAB key
 // On tap: TAB
@@ -179,20 +175,6 @@
         };
 
 
-        base_layer_us {
-// -----------------------------------------------------------------------------------------
-// | TAB  |  Q  |  W  |  F  |  P   |  B  |    |  J  |  L   |  U  |  Y  | ; : | = +  |
-// | EXT1 |  A  |  R  |  S  |  T   |  G  |    |  M  |  N   |  E  |  I  |  O  | ' "  |
-// | SHFT |  Z  |  X  |  C  |  D   |  V  |    |  K  |  H   | , < | . > | / ? | SHFT |
-//                    | GUI | CTRL | SPC |    | ENT | SYM  | ALT |
-            bindings = <
-   TAB_L_ZMK  &kp Q &kp W &kp F    &kp P     &kp B       &kp J   &kp L      &kp U     &kp Y   &kp SEMI &kp EQUAL
-   &mo L_EXT1 &kp A &kp R &kp S    &kp T     &kp G       &kp M   &kp N      &kp E     &kp I   &kp O    &kp SQT
-   &shft_caps &kp Z &kp X &kp C    &kp D     &kp V       &kp K   &kp H      &kp COMMA &kp DOT &kp FSLH &shft_caps
-                          &kp LGUI &kp LCTRL &kp SPACE   &kp RET &mo US_SYM &kp LALT
-            >;
-        };
-
         sym_layer_si_linux {
 // ----------------------------------------------------------------------------------------
 // | TAB  | 1 ! | 2 @ | 3 # | 4 $ | 5 % |    | 6 ^ | 7 & | 8 * | 9 ( | 0 ) | - _  |
@@ -218,20 +200,6 @@
             >;
         };
 
-
-        sym_layer_us {
-// ----------------------------------------------------------------------------------------
-// | TAB  | 1 ! | 2 @ | 3 # | 4 $ | 5 % |    | 6 ^ | 7 & | 8 * | 9 ( | 0 ) | - _  |
-// | EXT2 |     |     |     |     |     |    |     |     |     | [ { | ] } | ` ~  |
-// | SHFT |     |     |     |     |     |    |     |     |     |     | \ | | SHFT |
-//                    | GUI |     | SPC |    | ENT | XXX | ALT |
-            bindings = <
-   ___        &kp N1 &kp N2 &kp N3 &kp N4 &kp N5      &kp N6 &kp N7 &kp N8 &kp N9   &kp N0   &kp MINUS
-   &mo L_EXT2 xxx    xxx    xxx    xxx    xxx         xxx    xxx    xxx    &kp LBKT &kp RBKT &kp GRAVE
-   ___        xxx    xxx    xxx    xxx    xxx         xxx    xxx    xxx    xxx      &kp BSLH ___
-                            ___    ___    ___         ___    xxx    ___
-            >;
-        };
 
         ext1_layer {
 // -----------------------------------------------------------------------------------------
@@ -264,12 +232,12 @@
         zmk_layer {
 // -----------------------------------------------------------------------------------------
 // | XXX  | BT 0  | BT 1   | BT 2   | BT 3   | BT 4   |        |       |           |           |      |      |      |
-// |      | BTCLR |        | EP ON  | EP OFF | Reset  |        | To US | To SI WIN | To SI WIN |      |      |      |
+// |      | BTCLR |        | EP ON  | EP OFF | Reset  |        |       | To SI WIN | To SI WIN |      |      |      |
 // |      |       |        |        |        | Bootl  |        |       |           |           |      |      |      |
 //                         |        |        |        |        |       |           |           |
             bindings = <
    xxx &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2     &bt BT_SEL 3      &bt BT_SEL 4     xxx         xxx             xxx             xxx xxx xxx
-   xxx &bt BT_CLR   xxx          &ext_power EP_ON &ext_power EP_OFF &reset           &to US_BASE &to SI_BASE_LIN &to SI_BASE_WIN xxx xxx xxx
+   xxx &bt BT_CLR   xxx          &ext_power EP_ON &ext_power EP_OFF &reset           xxx         &to SI_BASE_LIN &to SI_BASE_WIN xxx xxx xxx
    xxx xxx          xxx          xxx              xxx               &bootloader      xxx         xxx             xxx             xxx xxx xxx
                                  xxx              xxx               xxx              xxx         xxx             xxx
             >;
