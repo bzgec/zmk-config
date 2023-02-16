@@ -41,7 +41,7 @@
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
  *  | TAB    | ESC    | WhUp   | GoBack | GoFwd  |        |             | Home   | PgDn   | PgUp   | End    | Del    | Print  |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  | XXX    | Back   | WhDown |        |        |        |             | Left   | Down   | Up     | Right  | Back   | ESC    |
+ *  | XXX    | Back   | WhDown | L desk | R desk |        |             | Left   | Down   | Up     | Right  | Back   | ESC    |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
  *  | Shift  |        |        |        |        |        |             | Undo   | Redo   |        |        |        | Shift  |
  *  +--------+--------+--------+----+---+----+---+----+---+----+   +----+---+----+---+----+---+----+--------+--------+--------+
@@ -131,11 +131,14 @@
 #define L_ZMK       8  // ZMK layer
 
 #define _MIC_MUTE_WIN  LG(LS(SI_A))
+#define _TOLDSK LG(LC(LEFT))   // Move to left desktop on Windows (WIN + CTRL + LEFT)
+#define _TORDSK LG(LC(RIGHT))  // Move to right desktop on Windows (WIN + CTRL + RIGHT)
 
 // Go to ZMK layer when holding TAB key
 // On tap: TAB
 // On hold: L_ZMK (ZMK layer)
 #define TAB_L_ZMK  &lt L_ZMK TAB
+
 
 // https://zmk.dev/docs/features/debouncing
 &kscan0 {
@@ -231,7 +234,7 @@
         ext1_layer_win {
             bindings = <
    ___ &kp ESC  &kp K_SCROLL_UP   &kp C_AC_BACK &kp C_AC_FORWARD xxx          &kp HOME &kp PG_DN      &kp PG_UP &kp END   &kp DEL  &kp PSCRN
-   xxx &kp BSPC &kp K_SCROLL_DOWN xxx           xxx              xxx          &kp LEFT &kp DOWN       &kp UP    &kp RIGHT &kp BSPC &kp ESC
+   xxx &kp BSPC &kp K_SCROLL_DOWN &kp _TOLDSK   &kp _TORDSK      xxx          &kp LEFT &kp DOWN       &kp UP    &kp RIGHT &kp BSPC &kp ESC
    ___ xxx      xxx               xxx           xxx              xxx          &kp UNDO &kp K_REDO     xxx       xxx       &kp DEL  ___
                                   ___           ___              &kp RET      ___      &mo L_EXT2_WIN ___
             >;
