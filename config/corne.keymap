@@ -272,10 +272,10 @@
 // |      |       |        |        |        | Bootl  |        |       |           |           |      |      |      |
 //                         |        |        |        |        |       |           |           |
             bindings = <
-   xxx &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2     &bt BT_SEL 3      &bt BT_SEL 4     xxx         xxx             xxx             xxx xxx xxx
-   xxx &bt BT_CLR   xxx          &ext_power EP_ON &ext_power EP_OFF &reset           xxx         &to SI_BASE_LIN &to SI_BASE_WIN xxx xxx xxx
-   xxx xxx          xxx          xxx              xxx               &bootloader      xxx         xxx             xxx             xxx xxx xxx
-                                 xxx              xxx               xxx              xxx         xxx             xxx
+   xxx &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2     &bt BT_SEL 3      &bt BT_SEL 4     xxx xxx             xxx             xxx xxx xxx
+   xxx &bt BT_CLR   xxx          &ext_power EP_ON &ext_power EP_OFF &sys_reset       xxx &to SI_BASE_LIN &to SI_BASE_WIN xxx xxx xxx
+   xxx xxx          xxx          xxx              xxx               &bootloader      xxx xxx             xxx             xxx xxx xxx
+                                 xxx              xxx               xxx              xxx xxx             xxx
             >;
         };
     };
