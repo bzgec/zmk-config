@@ -144,7 +144,7 @@
 
 // https://zmk.dev/docs/features/debouncing
 &kscan0 {
-    debounce-press-ms = <1>;    // Default is 5 ms
+    debounce-press-ms = <3>;    // Default is 5 ms
     debounce-release-ms = <4>;  // Default is 5 ms
 };
 
