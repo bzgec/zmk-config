@@ -69,7 +69,7 @@
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
  *  | XXX    | BT 0   | BT 1   | BT 2   | BT 3   | BT 4   |             |        |        |        |        |        |        |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  |        | BT CLR |        | EP ON  | EP OFF | Reset  |             |        | To SI  | To SI  |        |        |        |
+ *  |        | BT CLR |        | EP ON  | EP OFF | Reset  |             |        | To SI  | To SI  | To AoE |        |        |
  *  |        |        |        |        |        |        |             |        | Linux  | Win    |        |        |        |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
  *  |        |        |        |        |        | Bootl  |             |        |        |        |        |        |        |
@@ -129,6 +129,8 @@
 #define L_EXT2_LIN  6  // Extend layer 2: Linux host
 #define L_EXT2_WIN  7  // Extend layer 2: Windows host
 #define L_ZMK       8  // ZMK layer
+#define AOE_BASE    9  // Base AoE layer, host layout: SI, Windows host
+#define AOE_SYM    10  // Symbols AoE layer, host layout: SI, Windows host
 
 #define _MIC_MUTE_WIN  LG(LS(SI_A))
 #define _TOLDSK LG(LC(LEFT))   // Move to left desktop on Windows (WIN + CTRL + LEFT)
@@ -276,6 +278,34 @@
    xxx &bt BT_CLR   xxx          &ext_power EP_ON &ext_power EP_OFF &sys_reset       xxx &to SI_BASE_LIN &to SI_BASE_WIN xxx xxx xxx
    xxx xxx          xxx          xxx              xxx               &bootloader      xxx xxx             xxx             xxx xxx xxx
                                  xxx              xxx               xxx              xxx xxx             xxx
+            >;
+        };
+
+        base_layer_aoe_si {
+// -----------------------------------------------------------------------------------------
+// | TAB  |  Q  |  W  |  E   |  R  |  T  |    |  Z  |  U   |  I   |  O  |  P  | = +  |
+// | CTRL |  A  |  S  |  D   |  F  |  G  |    |  H  |  J   |  K   |  L  | < > | ' "  |
+// | SHFT |  Y  |  X  |  C   |  V  |  B  |    |  N  |  M   | , ;  | . : | - _ | SHFT |
+//                    | SYM2 | ALT | SPC |    | ENT | GUI  | CTRL |
+            bindings = <
+   TAB_L_ZMK  &kp SI_Q &kp SI_W &kp SI_E    &kp SI_R &kp SI_T    &kp SI_Z &kp SI_U       &kp SI_I  &kp SI_Y &si_semi &si_equal
+   &kp LCTRL  &kp SI_A &kp SI_S &kp SI_D    &kp SI_F &kp SI_G    &kp SI_H &kp SI_J       &kp SI_K  &kp SI_I &kp SI_O &si_sqt
+   &shft_caps &kp SI_Y &kp SI_X &kp SI_C    &kp SI_V &kp SI_B    &kp SI_N &kp SI_M       &si_comma &si_dot  &si_fslh &shft_caps
+                                &mo AOE_SYM &kp LALT &kp SPACE   &kp RET  &kp LGUI &kp LCTRL
+            >;
+        };
+
+        sym_layer_aoe_si_win {
+// ----------------------------------------------------------------------------------------
+// | TAB  | 1 ! | 2 @ | 3 # | 4 $ | 5 % |    | 6 ^ | 7 & | 8 *  | 9 ( | 0 ) | - _  |
+// | CTRL | 6   | 7   | 8   | 9   | 9   |    |     |     | € °  | [ { | ] } | ` ~  |
+// | SHFT |     |     |     |     |     |    |     |     |      |     | \ | | SHFT |
+//                    | XXX | ALT | SPC |    | ENT | GUI | CTRL |
+            bindings = <
+   ___ &kp SI_N1  &si_n2 &kp SI_N3 &kp SI_N4 &kp SI_N5      &si_n6_lin &si_n7 &si_n8   &si_n9   &si_n0   &kp SI_MINUS
+   ___ &si_n6_win &si_n7 &si_n8    &si_n9    &si_n0         xxx        xxx    &si_euro &si_lbkt &si_rbkt &si_grave_win
+   ___ xxx        xxx    xxx       xxx       xxx            xxx        xxx    xxx      xxx      &si_bslh ___
+                         xxx       ___       ___            ___        ___    ___
             >;
         };
     };
