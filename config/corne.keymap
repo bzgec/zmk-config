@@ -128,9 +128,9 @@
 #define L_EXT1_WIN  5  // Extend layer 1: Windows host
 #define L_EXT2_LIN  6  // Extend layer 2: Linux host
 #define L_EXT2_WIN  7  // Extend layer 2: Windows host
-#define L_ZMK       8  // ZMK layer
-#define AOE_BASE    9  // Base AoE layer, host layout: SI, Windows host
-#define AOE_SYM    10  // Symbols AoE layer, host layout: SI, Windows host
+#define AOE_BASE    8  // Base AoE layer, host layout: SI, Windows host
+#define AOE_SYM     9  // Symbols AoE layer, host layout: SI, Windows host
+#define L_ZMK      10  // ZMK layer
 
 #define _MIC_MUTE_WIN  LG(LS(SI_A))
 #define _TOLDSK LG(LC(LEFT))   // Move to left desktop on Windows (WIN + CTRL + LEFT)
@@ -267,20 +267,6 @@
             >;
         };
 
-        zmk_layer {
-// -----------------------------------------------------------------------------------------
-// | XXX  | BT 0  | BT 1   | BT 2   | BT 3   | BT 4   |        |       |           |           |      |      |      |
-// |      | BTCLR |        | EP ON  | EP OFF | Reset  |        |       | To SI WIN | To SI WIN |      |      |      |
-// |      |       |        |        |        | Bootl  |        |       |           |           |      |      |      |
-//                         |        |        |        |        |       |           |           |
-            bindings = <
-   xxx &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2     &bt BT_SEL 3      &bt BT_SEL 4     xxx xxx             xxx             xxx          xxx xxx
-   xxx &bt BT_CLR   xxx          &ext_power EP_ON &ext_power EP_OFF &sys_reset       xxx &to SI_BASE_LIN &to SI_BASE_WIN &to AOE_BASE xxx xxx
-   xxx xxx          xxx          xxx              xxx               &bootloader      xxx xxx             xxx             xxx          xxx xxx
-                                 xxx              xxx               xxx              xxx xxx             xxx
-            >;
-        };
-
         base_layer_aoe_si {
 // -----------------------------------------------------------------------------------------
 // | TAB  |  Q  |  W  |  E   |  R  |  T  |    |  Z  |  U   |  I   |  O  |  P  | = +  |
@@ -291,7 +277,7 @@
    TAB_L_ZMK &kp SI_Q &kp SI_W &kp SI_E    &kp SI_R &kp SI_T    &kp SI_Z &kp SI_U &kp SI_I  &kp SI_O &kp SI_P &si_equal
    &kp LCTRL &kp SI_A &kp SI_S &kp SI_D    &kp SI_F &kp SI_G    &kp SI_H &kp SI_J &kp SI_K  &kp SI_L &si_semi &si_sqt
    &kp LSHFT &kp SI_Y &kp SI_X &kp SI_C    &kp SI_V &kp SI_B    &kp SI_N &kp SI_M &si_comma &si_dot  &si_fslh &kp LSHFT
-                                &mo AOE_SYM &kp LALT &kp SPACE   &kp RET  &kp LGUI &kp LCTRL
+                               &mo AOE_SYM &kp LALT &kp SPACE   &kp RET  &kp LGUI &kp LCTRL
             >;
         };
 
@@ -306,6 +292,20 @@
    ___ &si_n6_win &si_n7 &si_n8    &si_n9    &si_n0         xxx        xxx    &si_euro &si_lbkt &si_rbkt &si_grave_win
    ___ xxx        xxx    xxx       xxx       xxx            xxx        xxx    xxx      xxx      &si_bslh ___
                          xxx       ___       ___            ___        ___    ___
+            >;
+        };
+
+        zmk_layer {
+// -----------------------------------------------------------------------------------------
+// | XXX  | BT 0  | BT 1   | BT 2   | BT 3   | BT 4   |        |       |           |           |      |      |      |
+// |      | BTCLR |        | EP ON  | EP OFF | Reset  |        |       | To SI WIN | To SI WIN |      |      |      |
+// |      |       |        |        |        | Bootl  |        |       |           |           |      |      |      |
+//                         |        |        |        |        |       |           |           |
+            bindings = <
+   xxx &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2     &bt BT_SEL 3      &bt BT_SEL 4     xxx xxx             xxx             xxx          xxx xxx
+   xxx &bt BT_CLR   xxx          &ext_power EP_ON &ext_power EP_OFF &sys_reset       xxx &to SI_BASE_LIN &to SI_BASE_WIN &to AOE_BASE xxx xxx
+   xxx xxx          xxx          xxx              xxx               &bootloader      xxx xxx             xxx             xxx          xxx xxx
+                                 xxx              xxx               xxx              xxx xxx             xxx
             >;
         };
     };
