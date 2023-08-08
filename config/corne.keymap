@@ -290,7 +290,7 @@
             bindings = <
    ___ &kp SI_N1  &si_n2 &kp SI_N3 &kp SI_N4 &kp SI_N5      &si_n6_lin &si_n7 &si_n8   &si_n9   &si_n0   &kp SI_MINUS
    ___ &si_n6_win &si_n7 &si_n8    &si_n9    &si_n0         xxx        xxx    &si_euro &si_lbkt &si_rbkt &si_grave_win
-   ___ xxx        xxx    xxx       xxx       xxx            xxx        xxx    xxx      xxx      &si_bslh ___
+   ___ &kp ESC    xxx    xxx       &kp DEL   xxx            xxx        xxx    xxx      xxx      &si_bslh ___
                          xxx       ___       ___            ___        ___    ___
             >;
         };
