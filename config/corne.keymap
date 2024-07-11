@@ -39,11 +39,11 @@
  * Extend layer 1:
  ***************************************************************************************************
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  | TAB    | ESC    | WhUp   | GoBack | GoFwd  |        |             | Home   | PgDn   | PgUp   | End    | Del    | Print  |
+ *  | TAB    | ESC    | WhUp   | GoBack | GoFwd  |        |             | Home   | PgDn   | PgUp   | End    |        | Print  |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
  *  | XXX    | Back   | WhDown | L desk | R desk |        |             | Left   | Down   | Up     | Right  | Back   | ESC    |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  | Shift  |        |        |        |        |        |             | Undo   | Redo   |        |        |        | Shift  |
+ *  | Shift  | Del    |        |        |        |        |             | Undo   | Redo   |        |        | Del    | Shift  |
  *  +--------+--------+--------+----+---+----+---+----+---+----+   +----+---+----+---+----+---+----+--------+--------+--------+
  *                                  | Win    | Ctrl   | Enter  |   | Enter  | EXT2   | L Alt  |
  *                                  +--------+--------+--------+   +--------+--------+--------+
@@ -220,14 +220,14 @@
 
         ext1_layer_lin {
 // -----------------------------------------------------------------------------------------
-// | TAB  | Esc   | WhUp   | GoBack | GoFwd  |        |    | Home   | PgDown | PgUp  | End   | Del  | Print |
+// | TAB  | Esc   | WhUp   | GoBack | GoFwd  |        |    | Home   | PgDown | PgUp  | End   |      | Print |
 // | XXX  | Back  | WhDown |        |        |        |    | Left   | Down   | Up    | Right | Back | Esc   |
-// | SHFT |       |        |        |        |        |    | Undo   | Redo   |       |       | Del  |       |
+// | SHFT | Del   |        |        |        |        |    | Undo   | Redo   |       |       | Del  |       |
 //                         | GUI    | CTRL   | Enter  |    | Enter  | EXT2   | L ALT |
             bindings = <
-   ___ &kp ESC  &kp K_SCROLL_UP   &kp C_AC_BACK &kp C_AC_FORWARD xxx          &kp HOME &kp PG_DN      &kp PG_UP &kp END   &kp DEL  &kp PSCRN
+   ___ &kp ESC  &kp K_SCROLL_UP   &kp C_AC_BACK &kp C_AC_FORWARD xxx          &kp HOME &kp PG_DN      &kp PG_UP &kp END   xxx      &kp PSCRN
    xxx &kp BSPC &kp K_SCROLL_DOWN xxx           xxx              xxx          &kp LEFT &kp DOWN       &kp UP    &kp RIGHT &kp BSPC &kp ESC
-   ___ xxx      xxx               xxx           xxx              xxx          &kp UNDO &kp K_REDO     xxx       xxx       &kp DEL  ___
+   ___ &kp DEL  xxx               xxx           xxx              xxx          &kp UNDO &kp K_REDO     xxx       xxx       &kp DEL  ___
                                   ___           ___              &kp RET      ___      &mo L_EXT2_LIN ___
             >;
         };
