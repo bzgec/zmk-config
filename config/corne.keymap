@@ -28,7 +28,7 @@
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
  *  | TAB    |  1  !  |  2  @  |  3  #  |  4  $  |  5  %  |             |  6  ^  |  7  &  |  8  *  |  9  (  |  0  )  |  -  _  |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  | EXT2   |        |        |  š  Š  |        |        |             |        |        |  €  °  |  [  {  |  ]  }  |  `  ~  |
+ *  | EXT2   |        |        |  š  Š  |        |        |             |        | MB1    |  €  °  |  [  {  |  ]  }  |  `  ~  |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
  *  | Shift  |  ž  Ž  |        |  č  Č  |        |        |             |        |        |        |        |  \  |  | Shift  |
  *  +--------+--------+--------+----+---+----+---+----+---+----+   +----+---+----+---+----+---+----+--------+--------+--------+
@@ -39,11 +39,11 @@
  * Extend layer 1:
  ***************************************************************************************************
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  | TAB    | ESC    | WhUp   | GoBack | GoFwd  |        |             | Home   | PgDn   | PgUp   | End    |        | Print  |
+ *  | TAB    | ESC    | MB4    | WhUp   | MB5    |        |             | Home   | PgDn   | PgUp   | End    |        | Print  |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  | XXX    | Back   | WhDown | L desk | R desk |        |             | Left   | Down   | Up     | Right  | Back   | ESC    |
+ *  | XXX    | Back   | WhLeft | WhDown | WhRight|        |             | Left   | Down   | Up     | Right  | Back   | ESC    |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  | Shift  | Del    |        |        |        |        |             | Undo   | Redo   |        |        | Del    | Shift  |
+ *  | Shift  | Del    |        | L Desk | R desk |        |             | Undo   | Redo   |        |        | Del    | Shift  |
  *  +--------+--------+--------+----+---+----+---+----+---+----+   +----+---+----+---+----+---+----+--------+--------+--------+
  *                                  | Win    | Ctrl   | Enter  |   | Enter  | EXT2   | L Alt  |
  *                                  +--------+--------+--------+   +--------+--------+--------+
@@ -67,14 +67,14 @@
  * ZMK layer:
  ***************************************************************************************************
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  | XXX    | BT 0   | BT 1   | BT 2   | BT 3   | BT 4   |             |        |        |        |        |        |        |
+ *  | XXX    | BT 0   | BT 1   | BT 2   | BT 3   | BT 4   |             |        |        |        |        | EP ON  | EP OFF |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  |        | BT CLR |        | EP ON  | EP OFF | Reset  |             |        | To SI  | To SI  | To AoE |        |        |
- *  |        |        |        |        |        |        |             |        | Linux  | Win    |        |        |        |
+ *  | Reset  | BT CLR |        |        |        |        |             | MLeft  | MDown  | MUp    | MRight |        |        |
  *  +--------+--------+--------+--------+--------+--------+             +--------+--------+--------+--------+--------+--------+
- *  |        |        |        |        |        | Bootl  |             |        |        |        |        |        |        |
+ *  | Bootl  |        |        |        |        |        |             |        |        |        |        |        |        |
  *  +--------+--------+--------+----+---+----+---+----+---+----+   +----+---+----+---+----+---+----+--------+--------+--------+
- *                                  |        |        |        |   |        |        |        |
+ *                                  | To SI  | To SI  | To AoE |   | MB3    | MB1    | MB2    |
+ *                                  | Linux  | Win    |        |   |        |        |        |
  *                                  +--------+--------+--------+   +--------+--------+--------+
  *
  * - `BT 0-4`: Select the x bluetooth profile
@@ -113,7 +113,7 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/ext_power.h>
-#include <dt-bindings/zmk/mouse.h>
+#include <dt-bindings/zmk/pointing.h>
 #include "keys_si.h"
 
 
@@ -195,7 +195,7 @@
         sym_layer_linux {
 // ----------------------------------------------------------------------------------------
 // | TAB  | 1 ! | 2 @ | 3 # | 4 $ | 5 % |    | 6 ^ | 7 & | 8 * | 9 ( | 0 ) | - _  |
-// | EXT2 |     |     | Š Š |     |     |    |     |     | € ° | [ { | ] } | ` ~  |
+// | EXT2 |     |     | Š Š |     |     |    |     | MB1 | € ° | [ { | ] } | ` ~  |
 // | SHFT | ž ž |     | č Č |     |     |    |     |     |     |     | \ | | SHFT |
 //                    | GUI |     | SPC |    | ENT | XXX | ALT |
             bindings = <
@@ -221,9 +221,9 @@
 
         ext1_layer_lin {
 // -----------------------------------------------------------------------------------------
-// | TAB  | Esc   | GoBack | WhUp   | GoFwd  |        |    | Home   | PgDown | PgUp  | End   |      | Print |
-// | XXX  | Back  |        | WhDown |        |        |    | Left   | Down   | Up    | Right | Back | Esc   |
-// | SHFT | Del   |        |        |        |        |    | Undo   | Redo   |       |       | Del  |       |
+// | TAB  | Esc   | MB4    | WhUp   | MB5    |        |    | Home   | PgDown | PgUp  | End   |      | Print |
+// | XXX  | Back  | WhLeft | WhDown | WhRight|        |    | Left   | Down   | Up    | Right | Back | Esc   |
+// | SHFT | Del   |        | TOLDSK | TORDSK |        |    | Undo   | Redo   |       |       | Del  |       |
 //                         | GUI    | CTRL   | Enter  |    | Enter  | EXT2   | L ALT |
             bindings = <
    ___ &kp ESC  &mkp MB4 &kp K_SCROLL_UP   &mkp MB5 xxx          &kp HOME &kp PG_DN      &kp PG_UP &kp END   xxx      &kp PSCRN
@@ -239,10 +239,10 @@
         // - `_TORDSK`
         ext1_layer_win {
             bindings = <
-   ___ &kp ESC  &mkp MB4 &kp K_SCROLL_UP   &mkp MB5    xxx          &kp HOME &kp PG_DN      &kp PG_UP &kp END   &kp DEL  &kp PSCRN
-   xxx &kp BSPC xxx      &kp K_SCROLL_DOWN xxx         xxx          &kp LEFT &kp DOWN       &kp UP    &kp RIGHT &kp BSPC &kp ESC
-   ___ xxx      xxx      &kp _TOLDSK       &kp _TORDSK xxx          &kp UNDO &kp K_REDO     xxx       xxx       &kp DEL  ___
-                         ___               ___         &kp RET      ___      &mo L_EXT2_WIN ___
+   ___ &kp ESC  &mkp MB4       &msc SCRL_UP   &mkp MB5        xxx          &kp HOME &kp PG_DN      &kp PG_UP &kp END   &kp DEL  &kp PSCRN
+   xxx &kp BSPC &msc SCRL_LEFT &msc SCRL_DOWN &msc SCRL_RIGHT xxx          &kp LEFT &kp DOWN       &kp UP    &kp RIGHT &kp BSPC &kp ESC
+   ___ xxx      xxx            &kp _TOLDSK    &kp _TORDSK     xxx          &kp UNDO &kp K_REDO     xxx       xxx       &kp DEL  ___
+                               ___            ___             &kp RET      ___      &mo L_EXT2_WIN ___
             >;
         };
 
@@ -288,28 +288,28 @@
         sym_layer_aoe_si_win {
 // ----------------------------------------------------------------------------------------
 // | TAB  | 1 ! | 2 @ | 3 # | 4 $ | 5 % |    | 6 ^ | 7 & | 8 *  | 9 ( | 0 ) | - _  |
-// | CTRL | 6   | 7   | 8   | 9   | 9   |    |     |     | € °  | [ { | ] } | ` ~  |
+// | CTRL | 6   | 7   | 8   | 9   | 9   |    |     | MB1 | € °  | [ { | ] } | ` ~  |
 // | SHFT |     |     |     |     |     |    |     |     |      |     | \ | | SHFT |
 //                    | XXX | ALT | SPC |    | ENT | GUI | CTRL |
             bindings = <
-   ___ &kp SI_N1  &si_n2 &kp SI_N3 &kp SI_N4 &kp SI_N5      &si_n6_lin &si_n7 &si_n8   &si_n9   &si_n0   &kp SI_MINUS
-   ___ &si_n6_win &si_n7 &si_n8    &si_n9    &si_n0         xxx        xxx    &si_euro &si_lbkt &si_rbkt &si_grave_win
-   ___ &kp ESC    xxx    xxx       &kp DEL   xxx            xxx        xxx    xxx      xxx      &si_bslh ___
-                         xxx       ___       ___            ___        ___    ___
+   ___ &kp SI_N1  &si_n2 &kp SI_N3 &kp SI_N4 &kp SI_N5      &si_n6_lin &si_n7   &si_n8   &si_n9   &si_n0   &kp SI_MINUS
+   ___ &si_n6_win &si_n7 &si_n8    &si_n9    &si_n0         xxx        &mkp MB1 &si_euro &si_lbkt &si_rbkt &si_grave_win
+   ___ &kp ESC    xxx    xxx       &kp DEL   xxx            xxx        xxx      xxx      xxx      &si_bslh ___
+                         xxx       ___       ___            ___        ___      ___
             >;
         };
 
         zmk_layer {
 // -----------------------------------------------------------------------------------------
-// | XXX   | BT 0  | BT 1   | BT 2   | BT 3   | BT 4   |        |        |           |           |      |      |      |
-// | Reset | BTCLR |        | EP ON  | EP OFF |        |        |        | To SI WIN | To SI WIN |      |      |      |
-// | Bootl |       |        |        |        |        |        |        |           |           |      |      |      |
-//                          |        |        |        |        | MS_MDL | MS_LEFT   | MS_RIGHT |
+// | XXX   | BT 0  | BT 1   | BT 2      | BT 3      | BT 4   |        |       |       |      |        | EP ON | EP OFF |
+// | Reset | BTCLR |        |           |           |        |        | MLeft | MDown | MUp  | MRight |       |        |
+// | Bootl |       |        |           |           |        |        |       |       |      |        |       |        |
+//                          | TO SI Lin | To SI Win | To AoE |        | MB3   | MB1   | MB2  |
             bindings = <
-   xxx         &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2     &bt BT_SEL 3      &bt BT_SEL 4     xxx      xxx             xxx             xxx          xxx xxx
-   &sys_reset  &bt BT_CLR   xxx          &ext_power EP_ON &ext_power EP_OFF xxx              xxx      &to SI_BASE_LIN &to SI_BASE_WIN &to AOE_BASE xxx xxx
-   &bootloader xxx          xxx          xxx              xxx               xxx              xxx      xxx             xxx             xxx          xxx xxx
-                                         xxx              xxx               xxx              &mkp MB3 &mkp MB1        &mkp MB2
+   xxx         &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2    &bt BT_SEL 3    &bt BT_SEL 4     xxx            xxx            xxx          xxx             &ext_power EP_ON &ext_power EP_OFF
+   &sys_reset  &bt BT_CLR   xxx          xxx             xxx             xxx              &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT xxx              xxx
+   &bootloader xxx          xxx          xxx             xxx             xxx              xxx            xxx            xxx          xxx             xxx              xxx
+                                         &to SI_BASE_LIN &to SI_BASE_WIN &to AOE_BASE     &mkp MB3       &mkp MB1       &mkp MB2
             >;
         };
     };
