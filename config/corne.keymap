@@ -226,10 +226,10 @@
 // | SHFT | Del   |        | TOLDSK | TORDSK |        |    | Undo   | Redo   |       |       | Del  |       |
 //                         | GUI    | CTRL   | Enter  |    | Enter  | EXT2   | L ALT |
             bindings = <
-   ___ &kp ESC  &mkp MB4 &kp K_SCROLL_UP   &mkp MB5 xxx          &kp HOME &kp PG_DN      &kp PG_UP &kp END   xxx      &kp PSCRN
-   xxx &kp BSPC xxx      &kp K_SCROLL_DOWN xxx      xxx          &kp LEFT &kp DOWN       &kp UP    &kp RIGHT &kp BSPC &kp ESC
-   ___ &kp DEL  xxx      xxx               xxx      xxx          &kp UNDO &kp K_REDO     xxx       xxx       &kp DEL  ___
-                         ___               ___      &kp RET      ___      &mo L_EXT2_LIN ___
+   ___ &kp ESC  &mkp MB4       &msc SCRL_UP   &mkp MB5        xxx          &kp HOME &kp PG_DN      &kp PG_UP &kp END   xxx      &kp PSCRN
+   xxx &kp BSPC &msc SCRL_LEFT &msc SCRL_DOWN &msc SCRL_RIGHT xxx          &kp LEFT &kp DOWN       &kp UP    &kp RIGHT &kp BSPC &kp ESC
+   ___ &kp DEL  xxx            xxx            xxx             xxx          &kp UNDO &kp K_REDO     xxx       xxx       &kp DEL  ___
+                               ___            ___             &kp RET      ___      &mo L_EXT2_LIN ___
             >;
         };
         // Changing only
