@@ -91,7 +91,7 @@
  ***************************************************************************************************
  * - EXT2 layer is accessible when pressing: 'EXT' + 'SYM'
  * - ZMK layer is accessible when holding TAB key
- * - Double tap on SHIFT key toggles CAPS_LOCK
+ * - Double tap on SHIFT key toggles CAPS_LOCK (currently disabled, pressed accidentally too many times)
  * - Difference between "SI Linux" and "SI Windows" is in how a few special characters
  *   are implemented but for the end use there should be no difference
  *
@@ -175,7 +175,7 @@
             bindings = <
    TAB_L_ZMK      &kp SI_Q &kp SI_W &kp SI_F &kp SI_P  &kp SI_B    &kp SI_J &kp SI_L       &kp SI_U  &kp SI_Y &si_semi &si_equal
    &mo L_EXT1_LIN &kp SI_A &kp SI_R &kp SI_S &kp SI_T  &kp SI_G    &kp SI_M &kp SI_N       &kp SI_E  &kp SI_I &kp SI_O &si_sqt
-   &shft_caps     &kp SI_Z &kp SI_X &kp SI_C &kp SI_D  &kp SI_V    &kp SI_K &kp SI_H       &si_comma &si_dot  &si_fslh &shft_caps
+   &kp LSHFT      &kp SI_Z &kp SI_X &kp SI_C &kp SI_D  &kp SI_V    &kp SI_K &kp SI_H       &si_comma &si_dot  &si_fslh &kp LSHFT
                                     &kp LGUI &kp LCTRL &kp SPACE   &kp RET  &mo SI_SYM_LIN &kp LALT
             >;
         };
