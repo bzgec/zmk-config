@@ -142,14 +142,6 @@
 // On hold: L_ZMK (ZMK layer)
 #define TAB_L_ZMK  &lt L_ZMK TAB
 
-
-// https://zmk.dev/docs/features/debouncing
-&kscan0 {
-    debounce-press-ms = <3>;    // Default is 5 ms
-    debounce-release-ms = <4>;  // Default is 5 ms
-};
-
-
 / {
     behaviors {
         #include "behaviors_mod_morph.dtsi"
