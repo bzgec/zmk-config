@@ -58,6 +58,15 @@ ZMK layer
 - `To SI Linux`: Switch keyboard layout to match SI host layout, Linux host
 - `To SI Win`: Switch keyboard layout to match SI host layout, Windows host
 
+AoE2 base layer
+---------------
+
+.. image:: aoe-slo-base.png
+
+AoE2 symbols layer
+------------------
+
+.. image:: aoe-slo-sym.png
 
 Other
 =====
