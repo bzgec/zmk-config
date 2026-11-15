@@ -295,12 +295,12 @@
 // -----------------------------------------------------------------------------------------
 // | XXX   | BT 0  | BT 1   | BT 2      | BT 3      | BT 4   |        |       |       |      |        | EP ON | EP OFF |
 // | Reset | BTCLR |        |           |           |        |        | MLeft | MDown | MUp  | MRight |       |        |
-// | Bootl |       |        |           |           |        |        |       |       |      |        |       |        |
+// | Bootl |       |        |           |           |        |        |       |       |      |        |       | Bootl  |
 //                          | TO SI Lin | To SI Win | To AoE |        | MB3   | MB1   | MB2  |
             bindings = <
    xxx         &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2    &bt BT_SEL 3    &bt BT_SEL 4        xxx            xxx            xxx          xxx             &ext_power EP_ON &ext_power EP_OFF
    &sys_reset  &bt BT_CLR   xxx          xxx             xxx             xxx                 &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT xxx              xxx
-   &bootloader xxx          xxx          xxx             xxx             xxx                 xxx            xxx            xxx          xxx             xxx              xxx
+   &bootloader xxx          xxx          xxx             xxx             xxx                 xxx            xxx            xxx          xxx             xxx              &bootloader
                                          &to SI_BASE_LIN &to SI_BASE_WIN &to AOE_BASE        &mkp MB3       &mkp MB1       &mkp MB2
             >;
         };
